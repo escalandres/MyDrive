@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FTP Directory</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .header {
+            background-color: #4285f4;
+            color: white;
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+        }
+        .header a {
+            color: white;
+            text-decoration: none;
+            margin-right: 10px;
+        }
+        .container {
+            padding: 20px;
+        }
+        .file-card {
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 10px;
+            margin: 10px;
+            display: flex;
+            align-items: center;
+            background-color: white;
+        }
+        .file-card img {
+            max-width: 40px;
+            max-height: 40px;
+            margin-right: 10px;
+        }
+        .file-details {
+            flex-grow: 1;
+        }
+        .file-size {
+            font-size: 12px;
+            color: #757575;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <a href="/ftp">ftp</a> &gt;
+        <a href="/ftp">Home</a>
+    </div>
+    <div class="container">
+        {{#each files}}
+        <div class="file-card">
+            <img src="/icon-file.png" alt="File Icon">
+            <div class="file-details">
+                <div>{{name}}</div>
+                <div class="file-size">{{size}}</div>
+            </div>
+        </div>
+        {{/each}}
+    </div>
+</body>
+</html>
