@@ -19,6 +19,14 @@
 </head>
 
 <body class="text-center">
+    <div id="panel" class="panel" style="display: none;"> 
+        <div class="contenedor">
+            <div class="spinner-border text-light spinne" style="width: 10rem; height: 10rem;" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+        </div>
+        
+    </div>
     <main class="form-login">
         <section class="card-template s-pxy-4 lg-x-4 lg-cols-4">
             <a href="/" class="icon-link">
@@ -28,7 +36,7 @@
                 </div>
             </a>
             <h1 class="t2 s-weight-extrabold s-center s-mb-4">Inicia sesión</h1>
-            <form action="/login" method="post">
+            <form id="login-form">
                 <div class="input-form s-relative s-mb-2 ">
                     
                     <div class="s-relative s-cross-center">

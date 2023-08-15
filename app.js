@@ -7,7 +7,11 @@ const handlebars = require('handlebars');
 require('dotenv').config(); 
 const app = express();
 const port = 3001;
-
+const admin = {
+    email: "admin@admin.com",
+    password: "password",
+    userId: "0001"
+}
 // Configuración de express-session
 app.use(session({
     secret: process.env.KEY, // Cambia esto a una clave secreta fuerte en producción
@@ -42,16 +46,24 @@ app.get('/', (req, res) => {
     res.redirect(`/ftp/${req.session.userId}`);
 });
 
+app.use(express.json()); // Agrega esta línea para manejar JSON en el cuerpo de la solicitud
 
-app.post('/', (req,res)=>{
+app.post('/login', (req,res)=>{
+    // console.log(req.body)
     const user = {
         email: req.body.email,
         password: req.body.password,
         userId: ""
     }
     //Buscar en base de datos
-    user.userId = "0001";
-
+    if(user.email == admin.email && user.password == admin.password){
+        user.userId = admin.userId
+        req.session.email = user.email
+        req.session.password = user.password
+        req.session.userId = user.userId
+        console.log(user.userId)
+        res.redirect(`/ftp/${user.userId}`);
+    }
 })
 
 app.get('/login', (req,res)=>{
@@ -76,27 +88,28 @@ app.get('/error', (req,res)=>{
     res.sendFile(path.join(__dirname, 'views/error.html'))
 })
 
-// Middleware para manejar la carpeta de FTP
-app.use('/ftp/:userId', (req, res, next) => {
-    const userId = req.params.userId;
-    if (!userId) {
-        // Si userId es nulo, redirigir a la página de inicio de sesión
-        return res.redirect('/login'); // Usar return para evitar que se envíe otra respuesta
-    }
+// // Middleware para manejar la carpeta de FTP
+// app.use('/ftp/:userId', (req, res, next) => {
+//     const userId = req.params.userId;
+//     console.log(userId)
+//     if (!userId) {
+//         // Si userId es nulo, redirigir a la página de inicio de sesión
+//         return res.redirect('/login'); // Usar return para evitar que se envíe otra respuesta
+//     }
 
-    const userFtpPath = path.join(__dirname, 'public/ftp', userId);
+//     const userFtpPath = path.join(__dirname, 'public/ftp', userId);
 
-    fs.access(userFtpPath, fs.constants.R_OK, (err) => {
-        if (err) {
-            // Si la carpeta no existe o no se puede acceder, enviar un error 404
-            res.status(404).send('Carpeta no encontrada');
-        } else {
-            next();
-        }
-    });
-});
+//     fs.access(userFtpPath, fs.constants.R_OK, (err) => {
+//         if (err) {
+//             // Si la carpeta no existe o no se puede acceder, enviar un error 404
+//             res.status(404).send('Carpeta no encontrada');
+//         } else {
+//             next();
+//         }
+//     });
+// });
 
 // app.use('/ftp',express.static('public/ftp/0001'), serveIndex('public/ftp/0001', {icons:true}))
-app.use('/ftp/:userId', express.static('public'), serveIndex('public', { icons: true }));
+app.use('/ftp/:userId', express.static('public/ftp/:userId'), serveIndex('public/', { icons: true }));
 
 app.listen(port, () => console.log(`App running on http://localhost:${port}`))
