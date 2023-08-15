@@ -23,7 +23,7 @@ app.use(session({
         httpOnly: true,           // La cookie solo es accesible por el servidor (no por JavaScript en el navegador)
         sameSite: 'strict',       // Controla cómo se envía la cookie en las solicitudes del mismo sitio
         path: '/',                // Ruta base donde se aplica la cookie
-        domain: 'example.com',    // Dominio para el que se aplicará la cookie
+        domain: 'localhost:3001',    // Dominio para el que se aplicará la cookie
     }
 }));
   app.use(express.static(path.join(__dirname, 'public')));
@@ -48,23 +48,26 @@ app.get('/', (req, res) => {
 
 app.use(express.json()); // Agrega esta línea para manejar JSON en el cuerpo de la solicitud
 
-app.post('/login', (req,res)=>{
-    // console.log(req.body)
+app.post('/login', (req, res) => {
     const user = {
         email: req.body.email,
         password: req.body.password,
         userId: ""
     }
-    //Buscar en base de datos
-    if(user.email == admin.email && user.password == admin.password){
-        user.userId = admin.userId
-        req.session.email = user.email
-        req.session.password = user.password
-        req.session.userId = user.userId
-        console.log(user.userId)
-        res.redirect(`/ftp/${user.userId}`);
+    
+    // Buscar en base de datos
+    if (user.email === admin.email && user.password === admin.password) {
+        user.userId = admin.userId;
+        req.session.userId = admin.userId;
+        console.log(req.session)
+        console.log(admin.userId);
+        // Enviar respuesta JSON indicando éxito
+        res.json({ success: true, userId: req.session.userId });
+    } else {
+        // Enviar respuesta JSON indicando fallo
+        res.json({ success: false });
     }
-})
+});
 
 app.get('/login', (req,res)=>{
     console.log('login')
@@ -82,34 +85,30 @@ app.get('/logout', (req, res) => {
 });
 
 
-
-
 app.get('/error', (req,res)=>{
     res.sendFile(path.join(__dirname, 'views/error.html'))
 })
 
 // // Middleware para manejar la carpeta de FTP
-// app.use('/ftp/:userId', (req, res, next) => {
-//     const userId = req.params.userId;
-//     console.log(userId)
-//     if (!userId) {
-//         // Si userId es nulo, redirigir a la página de inicio de sesión
-//         return res.redirect('/login'); // Usar return para evitar que se envíe otra respuesta
-//     }
-
-//     const userFtpPath = path.join(__dirname, 'public/ftp', userId);
-
-//     fs.access(userFtpPath, fs.constants.R_OK, (err) => {
-//         if (err) {
-//             // Si la carpeta no existe o no se puede acceder, enviar un error 404
-//             res.status(404).send('Carpeta no encontrada');
-//         } else {
-//             next();
-//         }
-//     });
-// });
-
 // app.use('/ftp',express.static('public/ftp/0001'), serveIndex('public/ftp/0001', {icons:true}))
-app.use('/ftp/:userId', express.static('public/ftp/:userId'), serveIndex('public/', { icons: true }));
+// app.use('/ftp/:userId', express.static('public/ftp/:userId'), serveIndex('public/', { icons: true }));
+
+app.get('/ftp/:userId', (req, res, next) => {
+    const userId = req.params.userId;
+    console.log(req.session)
+    console.log(req.params.userId)
+    // Verificar si el usuario está autenticado y tiene el mismo ID
+    if (req.session.userId && req.session.userId === userId) {
+        // Construir la ruta de la carpeta de FTP del usuario
+        const userFtpPath = path.join(__dirname, `ftp/${userId}`);
+        
+        // Servir contenido estático de la carpeta de FTP del usuario
+        express.static(userFtpPath)(req, res, next);
+    } else {
+        // Acceso no autorizado
+        res.status(403).send('Acceso no autorizado');
+    }
+});
+
 
 app.listen(port, () => console.log(`App running on http://localhost:${port}`))

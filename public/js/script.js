@@ -19,46 +19,30 @@ function hideLoading() {
     panel.style.display = "none";
 }
 
-document.getElementById('login-form').addEventListener('submit', function(event) {
-    event.preventDefault(); // Evitar el envío del formulario por defecto
+
+const form = document.getElementById('loginForm');
+
+form.addEventListener('submit', async (event) => {
+    event.preventDefault();
     showLoading();
-    // Obtener los datos del formulario
-    const form = event.target;
-    // const url = form.elements.videoUrl.value;
-    // toast(url)
-    const data = {
-        email: form.elements.email.value,
-        password: form.elements.password.value
-    }
-    console.log(JSON.stringify(data))
-    // Realizar la solicitud POST
-    fetch('http://localhost:3001/login', {
+    const response = await fetch('/login', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({email: form.elements.email.value,
-            password: form.elements.password.value})
-    })
-    .then(response => response.json())
-    .then(data => {
-        console.log('Respuesta:', data);
-        hideLoading()
-        // if(data.estatus){
-        //     // Hacer algo con la respuesta recibida
-        //     document.getElementById('downloadBtn').disabled = false;
-        //     document.getElementById('option1').checked = true;
-        //     document.getElementById('options-container').style.display = '';
-        //     document.getElementById('audio-options-container').style.display = '';
-        //     document.getElementById('video-options-container').style.display = '';
-        // }
-        // toast(data.message);
-    })
-    .catch(error => {
-        hideLoading()
-        console.log(error)
-        console.error('Error al hacer la solicitud POST: ' + error);
-        // Manejar el error
-        // toast(error);
+        body: JSON.stringify({
+            email: form.elements.email.value,
+            password: form.elements.password.value
+        })
     });
+    hideLoading();
+    const data = await response.json();
+
+    if (data.success) {
+        // Redirigir si el inicio de sesión es exitoso
+        window.location.href = `/ftp/${data.userId}`;
+    } else {
+        // Mostrar un mensaje de error si el inicio de sesión falla
+        alert('Inicio de sesión fallido');
+    }
 });
