@@ -24,6 +24,11 @@ app.use(session({
         sameSite: 'strict',       // Controla cómo se envía la cookie en las solicitudes del mismo sitio
         path: '/',                // Ruta base donde se aplica la cookie
         domain: 'localhost:3001',    // Dominio para el que se aplicará la cookie
+    },
+    user: {
+        id: "",
+        email: "",
+        token:""
     }
 }));
   app.use(express.static(path.join(__dirname, 'public')));
@@ -49,24 +54,30 @@ app.get('/', (req, res) => {
 app.use(express.json()); // Agrega esta línea para manejar JSON en el cuerpo de la solicitud
 
 app.post('/login', (req, res) => {
-    const user = {
-        email: req.body.email,
-        password: req.body.password,
-        userId: ""
+    try{
+        const email = req.body.email;
+        const password = req.body.password;
+        console.log(email, password)
+        // Verificar si las credenciales son válidas
+        if (email === admin.email && password === admin.password) {
+            // Iniciar sesión
+            console.log(req.session)
+
+            req.session.user = {id: admin.userId, email: admin.email};
+            // Enviar respuesta JSON indicando éxito
+            console.log(req.session)
+            res.json({ success: true, userId: req.session.user.id });
+        } else {
+            // Enviar respuesta JSON indicando fallo
+            res.status(401).json({ success: false });
+        }
+    }
+    catch(error){
+        console.error(error)
+        // Enviar respuesta JSON indicando fallo
+        res.status(401).json({ success: false });
     }
     
-    // Buscar en base de datos
-    if (user.email === admin.email && user.password === admin.password) {
-        user.userId = admin.userId;
-        req.session.userId = admin.userId;
-        console.log(req.session)
-        console.log(admin.userId);
-        // Enviar respuesta JSON indicando éxito
-        res.json({ success: true, userId: req.session.userId });
-    } else {
-        // Enviar respuesta JSON indicando fallo
-        res.json({ success: false });
-    }
 });
 
 app.get('/login', (req,res)=>{
@@ -94,20 +105,32 @@ app.get('/error', (req,res)=>{
 // app.use('/ftp/:userId', express.static('public/ftp/:userId'), serveIndex('public/', { icons: true }));
 
 app.get('/ftp/:userId', (req, res, next) => {
-    const userId = req.params.userId;
-    console.log(req.session)
-    console.log(req.params.userId)
-    // Verificar si el usuario está autenticado y tiene el mismo ID
-    if (req.session.userId && req.session.userId === userId) {
-        // Construir la ruta de la carpeta de FTP del usuario
-        const userFtpPath = path.join(__dirname, `ftp/${userId}`);
+    // const session = req
+    // const userId = req.params.userId;
+    // console.log(req.session)
+    // console.log(req.params.userId)
+    // // Verificar si el usuario está autenticado y tiene el mismo ID
+    // if (req.session.userId && req.session.userId === userId) {
+    //     // Construir la ruta de la carpeta de FTP del usuario
+    //     const userFtpPath = path.join(__dirname, `ftp/${userId}`);
         
-        // Servir contenido estático de la carpeta de FTP del usuario
-        express.static(userFtpPath)(req, res, next);
-    } else {
-        // Acceso no autorizado
-        res.status(403).send('Acceso no autorizado');
+    //     // Servir contenido estático de la carpeta de FTP del usuario
+    //     express.static(userFtpPath)(req, res, next);
+    // } else {
+    //     // Acceso no autorizado
+    //     res.status(403).send('Acceso no autorizado');
+    // }
+    // Cargar sesión
+    const session = req.session;
+    console.log(session)
+    // Verificar si el usuario ha iniciado sesión
+    if (!session.userId) {
+        // Si no ha iniciado sesión, redirigir a la ruta /login
+        res.redirect('/login');
+        return;
     }
+    // Si ha iniciado sesión, renderizar la página FTP
+    res.render(__dirname+'/ftp', { userId: session.userId });
 });
 
 
