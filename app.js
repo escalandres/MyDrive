@@ -33,13 +33,38 @@ app.use(session({
     //     domain: 'localhost:3001',    // Dominio para el que se aplicará la cookie
     // },
 }));
-//app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'public')));
 // Configura tu middleware para manejar rutas no existentes
 // app.use((req, res, next) => {
 //     res.status(404).sendFile(path.join(__dirname, 'views/error.html'));
 //     //console.log('error')
 //     //res.redirect('/error')
 // });
+
+function rutaEsValida(url,userId) {
+    // Aquí puedes implementar tu lógica para verificar si la ruta es válida
+    // Por ejemplo, puedes comparar la url con una lista de rutas válidas
+    const rutasValidas = ['/','/login', `/ftp/${userId}`, '/prueba'];
+    
+    return rutasValidas.includes(url);
+}
+
+app.use((req, res, next) => {
+    console.log(req.session)
+    if (!rutaEsValida(req.url, req.session.user?.id ?? "")) {
+        res.status(404).sendFile(path.join(__dirname, 'views/error.html'));
+    } else {
+        next();
+    }
+});
+
+// Middleware final en caso de que ninguna ruta haya coincidido
+// app.use((req, res) => {
+//     res.status(404).sendFile(path.join(__dirname, 'views/error.html'));
+// });
+
+
+
 
 
 app.use(express.static(path.join(__dirname, 'public')));
@@ -163,14 +188,14 @@ app.use('/ftp/:userId', (req, res, next) => {
             // Carpeta no encontrada
             res.status(404).send('Carpeta no encontrada');
         }
-    } else {
+    } else { 
         // Acceso no autorizado
         res.status(403).send('Acceso no autorizado');
     }
 });
 
 // Definir middleware para servir el índice de la carpeta
-app.use('/ftp/:userId', serveIndex(path.join(__dirname, 'ftp'), { icons: true }));
+app.use('/ftp', serveIndex(path.join(__dirname, 'ftp'), { icons: true }));
 
 
 app.listen(port, () => console.log(`App running on http://localhost:${port}`))
