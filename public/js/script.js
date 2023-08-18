@@ -37,9 +37,10 @@ form.addEventListener('submit', async (event) => {
     });
     hideLoading();
     const data = await response.json();
-    console.log(data)
     if (!data.success) {
         // Mostrar un mensaje de error si el inicio de sesión falla
         alert('Inicio de sesión fallido');
+    }else{
+        window.location.href = '/mydrive'
     }
 });

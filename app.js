@@ -13,6 +13,21 @@ const admin = {
     userId: "0001"
 }
 
+// Configuración de express-session
+app.use(session({
+    secret: process.env.KEY, // Cambia esto a una clave secreta fuerte en producción
+    resave: false,
+    saveUninitialized: false,
+    // cookie: {
+    //     maxAge: 1000 * 60 * 15, // 15 minutos (en milisegundos)
+    //     secure: false,             // Solo se envía la cookie en conexiones seguras (HTTPS)
+    //     httpOnly: true,           // La cookie solo es accesible por el servidor (no por JavaScript en el navegador)
+    //     sameSite: 'strict',       // Controla cómo se envía la cookie en las solicitudes del mismo sitio
+    //     path: '/',                // Ruta base donde se aplica la cookie
+    //     domain: 'localhost:3001',    // Dominio para el que se aplicará la cookie
+    // },
+}));
+
 //settings
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
@@ -24,6 +39,7 @@ const authenticationMiddleware = (req, res, next) => {
     if (req.url.startsWith("/mydrive")) {
       // Verificar si el usuario no está autenticado
       if (!req.session || !req.session.user) {
+        console.log('sesion',req.session)
         console.log('Usuario no autenticado. Redirigiendo a /login');
         return res.redirect('/login');
       }
@@ -53,22 +69,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(authenticationMiddleware);
 // app.use(redirectToUserFtp);
 
-
-// Configuración de express-session
-app.use(session({
-    secret: process.env.KEY, // Cambia esto a una clave secreta fuerte en producción
-    resave: false,
-    saveUninitialized: false,
-    // cookie: {
-    //     maxAge: 1000 * 60 * 15, // 15 minutos (en milisegundos)
-    //     secure: false,             // Solo se envía la cookie en conexiones seguras (HTTPS)
-    //     httpOnly: true,           // La cookie solo es accesible por el servidor (no por JavaScript en el navegador)
-    //     sameSite: 'strict',       // Controla cómo se envía la cookie en las solicitudes del mismo sitio
-    //     path: '/',                // Ruta base donde se aplica la cookie
-    //     domain: 'localhost:3001',    // Dominio para el que se aplicará la cookie
-    // },
-}));
-
 app.get('/', (req, res) => {
     if (!req.session.user) {
         // Redirigir solo si el usuario no está autenticado
@@ -76,7 +76,7 @@ app.get('/', (req, res) => {
     }
 
     // Si hay una sesión de usuario iniciada, redirige a la ruta /ftp/:userId
-    res.redirect(`/ftp/${req.session.user.id}`);
+    res.redirect(`/mydrive`);
 });
 
 
@@ -106,7 +106,8 @@ app.post('/login', (req, res) => {
             }
             
             console.log(req.session);
-            return res.redirect('/mydrive');
+            //return res.redirect('/mydrive');
+            res.status(200).json({ success: true });
         } else {
             // Enviar respuesta JSON indicando fallo
             res.status(401).json({ success: false });
@@ -130,30 +131,70 @@ app.get('/logout', (req, res) => {
 });
 
 
-// Definir middleware para servir archivos estáticos
-app.use('/mydrive', (req, res, next) => {
-    // Construir la ruta de la carpeta de FTP del usuario
-    const userFtpPath = path.join(__dirname, `ftp/${req.session.user.id}`);
-
-    // Verificar si la ruta existe (carpeta de FTP del usuario)
-    if (fs.existsSync(userFtpPath)) {
-        // Servir contenido estático de la carpeta de FTP del usuario
-        express.static(userFtpPath)(req, res, next);
-    } else {
-        // Carpeta no encontrada
-        res.status(404).send('Carpeta no encontrada');
-    }
+// // Definir middleware para servir archivos estáticos
+// app.use('/mydrive', (req, res, next) => {
+//     console.log('servir drive')
+//     console.log(req.session)
+//     // Construir la ruta de la carpeta de FTP del usuario
+//     const userFtpPath = path.join(__dirname, `ftp/${req.session.user.id}`);
+//     console.log('userFtpPath',userFtpPath)
+//     // Verificar si la ruta existe (carpeta de FTP del usuario)
+//     if (fs.existsSync(userFtpPath)) {
+//         // Servir contenido estático de la carpeta de FTP del usuario
+//         express.static(userFtpPath)(req, res, next);
+//     } else {
+//         // Carpeta no encontrada
+//         res.status(404).send('Carpeta no encontrada');
+//     }
     
-});
+// });
+
+// app.use('/mydrive', serveIndex(path.join(__dirname, 'ftp'), { 
+//     icons: true,
+//     stylesheet: './public/css/ftp.css'
+// }));
 
 // Definir middleware para servir el índice de la carpeta
 // app.use('/ftp', serveIndex(path.join(__dirname, 'ftp'), { 
 //     icons: true
 // }));
-app.use('/mydrive', serveIndex(path.join(__dirname, 'ftp'), { 
+
+app.use('/mydrive', (req, res, next) => {
+    if (req.session && req.session.user) {
+        const userId = req.session.user.id;
+        const userFtpPath = path.join(__dirname, `ftp/${userId}`);
+        
+        // Verifica si la carpeta de FTP del usuario existe
+        if (fs.existsSync(userFtpPath)) {
+            // Servir contenido estático de la carpeta de FTP del usuario
+            express.static(userFtpPath)(req, res, next);
+        } else {
+            // Carpeta no encontrada
+            res.status(404).send('Carpeta no encontrada');
+        }
+    } else {
+        // Usuario no autenticado
+        res.status(401).redirect('/login');
+    }
+});
+
+app.use('/mydrive', (req, res, next) => {
+    if (req.session && req.session.user) {
+        const userId = req.session.user.id;
+        const userFtpPath = path.join(__dirname, `ftp/${userId}`);
+        
+        // Redirigir la solicitud a la carpeta del usuario
+        req.url = `/${userId}${req.url}`;
+        next();
+    } else {
+        // Usuario no autenticado
+        res.status(401).redirect('/login');
+    }
+}, serveIndex(path.join(__dirname, 'ftp'), {
     icons: true,
     stylesheet: './public/css/ftp.css'
 }));
+
 
 app.use(handleNotFound);
 
