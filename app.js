@@ -18,6 +18,41 @@ app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 
 
+//Middlewares
+const authenticationMiddleware = (req, res, next) => {
+    console.log('url',req.url)
+    if (req.url.startsWith("/mydrive")) {
+      // Verificar si el usuario no está autenticado
+      if (!req.session || !req.session.user) {
+        console.log('Usuario no autenticado. Redirigiendo a /login');
+        return res.redirect('/login');
+      }
+    }
+    
+    next();
+};
+  
+
+  
+//   // Middleware de redirección a '/ftp/:userId'
+// const redirectToUserFtp = (req, res, next) => {
+//     if (req.url === '/mydrive') {
+//       // Redirige a '/ftp/:userId' si el usuario está autenticado
+//         return res.redirect(`/ftp/${req.session.user.id}`);
+//     }
+//     next();
+// };
+  
+// Middleware para manejar rutas no encontradas
+const handleNotFound = (req, res, next) => {
+    res.status(404).sendFile(path.join(__dirname, 'views/error.html'));
+};
+
+// Aplicar los middlewares en orden
+app.use(express.static(path.join(__dirname, 'public')));
+app.use(authenticationMiddleware);
+// app.use(redirectToUserFtp);
+
 
 // Configuración de express-session
 app.use(session({
@@ -33,47 +68,10 @@ app.use(session({
     //     domain: 'localhost:3001',    // Dominio para el que se aplicará la cookie
     // },
 }));
-app.use(express.static(path.join(__dirname, 'public')));
-// Configura tu middleware para manejar rutas no existentes
-// app.use((req, res, next) => {
-//     res.status(404).sendFile(path.join(__dirname, 'views/error.html'));
-//     //console.log('error')
-//     //res.redirect('/error')
-// });
 
-function rutaEsValida(url,userId) {
-    // Aquí puedes implementar tu lógica para verificar si la ruta es válida
-    // Por ejemplo, puedes comparar la url con una lista de rutas válidas
-    const rutasValidas = ['/','/login', `/ftp/${userId}`, '/prueba'];
-    
-    return rutasValidas.includes(url);
-}
-
-app.use((req, res, next) => {
-    console.log(req.session)
-    if (!rutaEsValida(req.url, req.session.user?.id ?? "")) {
-        res.status(404).sendFile(path.join(__dirname, 'views/error.html'));
-    } else {
-        next();
-    }
-});
-
-// Middleware final en caso de que ninguna ruta haya coincidido
-// app.use((req, res) => {
-//     res.status(404).sendFile(path.join(__dirname, 'views/error.html'));
-// });
-
-
-
-
-
-app.use(express.static(path.join(__dirname, 'public')));
 app.get('/', (req, res) => {
-    console.log('/')
-    console.log(req.session)
-    if (!req.session || !req.session.user) {
-        // Redirigir solo aquí, sin enviar otra respuesta
-        console.log('no hay sesion')
+    if (!req.session.user) {
+        // Redirigir solo si el usuario no está autenticado
         return res.redirect('/login');
     }
 
@@ -82,46 +80,44 @@ app.get('/', (req, res) => {
 });
 
 
+app.get('/login', (req,res)=>{
+    console.log(req.url)
+    res.sendFile(path.join(__dirname, 'views/login.html'))
+})
+
+
 app.post('/login', (req, res) => {
-    try{
+    console.log('iniciar login');
+    try {
         const email = req.body.email;
         const password = req.body.password;
-        console.log(email, password)
+        console.log(email, password);
+        
         // Verificar si las credenciales son válidas
         if (email === admin.email && password === admin.password) {
-            // Iniciar sesión
-            console.log(req.session)
-
-            req.session.user = {id: admin.userId, email: admin.email};
-            // Enviar respuesta JSON indicando éxito
-            console.log(req.session)
-            // res.redirect('/prueba')
-            res.json({ success: true, userId: req.session.user.id });
+            if (req.session) {
+                // Actualizar la sesión existente con la información del usuario
+                console.log('si')
+                req.session.user = { id: admin.userId, email: admin.email };
+            } else {
+                // Si no existe una sesión, crear una nueva
+                console.log('no')
+                req.session = { user: { id: admin.userId, email: admin.email } };
+            }
+            
+            console.log(req.session);
+            return res.redirect('/mydrive');
         } else {
             // Enviar respuesta JSON indicando fallo
             res.status(401).json({ success: false });
         }
-    }
-    catch(error){
-        console.error(error)
+    } catch (error) {
+        console.error(error);
         // Enviar respuesta JSON indicando fallo
         res.status(401).json({ success: false });
     }
-    
 });
 
-app.get('/prueba',(req,res)=>{
-    console.log('prueba')
-    const sesion = req.session
-    console.log(sesion)
-    console.log('----------------------------------------------------------------')
-    res.send('hola')
-})
-
-app.get('/login', (req,res)=>{
-    console.log('login')
-    res.sendFile(path.join(__dirname, 'views/login.html'))
-})
 
 app.get('/logout', (req, res) => {
     // Destruir la sesión y redirigir a la página de inicio de sesión
@@ -134,68 +130,31 @@ app.get('/logout', (req, res) => {
 });
 
 
-app.get('/error', (req,res)=>{
-    res.sendFile(path.join(__dirname, 'views/error.html'))
-})
-
-// // Middleware para manejar la carpeta de FTP
-// app.use('/ftp',express.static('public/ftp/0001'), serveIndex('public/ftp/0001', {icons:true}))
-// app.use('/ftp/:userId', express.static('public/ftp/:userId'), serveIndex('public/ftp/:userId', { icons: true }));
-
-// app.get('/ftp/:userId', (req, res, next) => {
-//     const userId = req.params.userId;
-//     console.log(req.session)
-//     console.log(req.params.userId)
-//     // Verificar si el usuario está autenticado y tiene el mismo ID
-//     if (req.session.user && req.session.user.id === userId) {
-//         // Construir la ruta de la carpeta de FTP del usuario
-//         const userFtpPath = path.join(__dirname, `ftp/${userId}`);
-        
-//         // Servir contenido estático de la carpeta de FTP del usuario
-//         express.static(userFtpPath)(req, res, next);
-//     } else {
-//         // Acceso no autorizado
-//         res.status(403).send('Acceso no autorizado');
-//     }
-//     // Cargar sesión
-//     // const session = req.session;
-//     // console.log('FTP')
-//     // console.log(session)
-//     // // Verificar si el usuario ha iniciado sesión
-//     // if (!session.user.id) {
-//     //     // Si no ha iniciado sesión, redirigir a la ruta /login
-//     //     res.redirect('/login');
-//     //     return;
-//     // }
-//     // // Si ha iniciado sesión, renderizar la página FTP
-//     // res.render(__dirname+'/ftp', { userId: session.user.id });
-// });
-
 // Definir middleware para servir archivos estáticos
-app.use('/ftp/:userId', (req, res, next) => {
-    const userId = req.params.userId;
+app.use('/mydrive', (req, res, next) => {
+    // Construir la ruta de la carpeta de FTP del usuario
+    const userFtpPath = path.join(__dirname, `ftp/${req.session.user.id}`);
 
-    // Verificar si el usuario está autenticado y tiene el mismo ID
-    if (req.session.user && req.session.user.id === userId) {
-        // Construir la ruta de la carpeta de FTP del usuario
-        const userFtpPath = path.join(__dirname, `ftp/${userId}`);
-
-        // Verificar si la ruta existe (carpeta de FTP del usuario)
-        if (fs.existsSync(userFtpPath)) {
-            // Servir contenido estático de la carpeta de FTP del usuario
-            express.static(userFtpPath)(req, res, next);
-        } else {
-            // Carpeta no encontrada
-            res.status(404).send('Carpeta no encontrada');
-        }
-    } else { 
-        // Acceso no autorizado
-        res.status(403).send('Acceso no autorizado');
+    // Verificar si la ruta existe (carpeta de FTP del usuario)
+    if (fs.existsSync(userFtpPath)) {
+        // Servir contenido estático de la carpeta de FTP del usuario
+        express.static(userFtpPath)(req, res, next);
+    } else {
+        // Carpeta no encontrada
+        res.status(404).send('Carpeta no encontrada');
     }
+    
 });
 
 // Definir middleware para servir el índice de la carpeta
-app.use('/ftp', serveIndex(path.join(__dirname, 'ftp'), { icons: true }));
+// app.use('/ftp', serveIndex(path.join(__dirname, 'ftp'), { 
+//     icons: true
+// }));
+app.use('/mydrive', serveIndex(path.join(__dirname, 'ftp'), { 
+    icons: true,
+    stylesheet: './public/css/ftp.css'
+}));
 
+app.use(handleNotFound);
 
 app.listen(port, () => console.log(`App running on http://localhost:${port}`))

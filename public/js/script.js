@@ -37,11 +37,8 @@ form.addEventListener('submit', async (event) => {
     });
     hideLoading();
     const data = await response.json();
-
-    if (data.success) {
-        // Redirigir si el inicio de sesión es exitoso
-        window.location.href = `/ftp/${data.userId}`;
-    } else {
+    console.log(data)
+    if (!data.success) {
         // Mostrar un mensaje de error si el inicio de sesión falla
         alert('Inicio de sesión fallido');
     }
