@@ -119,6 +119,44 @@ app.post('/login', (req, res) => {
     }
 });
 
+app.get('/register', (req,res)=>{
+    console.log(req.url)
+    res.sendFile(path.join(__dirname, 'views/register.html'))
+})
+
+
+app.post('/register', (req, res) => {
+    console.log('iniciar login');
+    try {
+        const email = req.body.email;
+        const password = req.body.password;
+        console.log(email, password);
+        
+        // Verificar si las credenciales son válidas
+        if (email === admin.email && password === admin.password) {
+            if (req.session) {
+                // Actualizar la sesión existente con la información del usuario
+                console.log('si')
+                req.session.user = { id: admin.userId, email: admin.email };
+            } else {
+                // Si no existe una sesión, crear una nueva
+                console.log('no')
+                req.session = { user: { id: admin.userId, email: admin.email } };
+            }
+            
+            console.log(req.session);
+            //return res.redirect('/mydrive');
+            res.status(200).json({ success: true });
+        } else {
+            // Enviar respuesta JSON indicando fallo
+            res.status(401).json({ success: false });
+        }
+    } catch (error) {
+        console.error(error);
+        // Enviar respuesta JSON indicando fallo
+        res.status(401).json({ success: false });
+    }
+});
 
 app.get('/logout', (req, res) => {
     // Destruir la sesión y redirigir a la página de inicio de sesión
