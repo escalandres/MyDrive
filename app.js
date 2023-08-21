@@ -4,6 +4,7 @@ const serveIndex = require('serve-index')
 const path = require('path')
 const fs = require('fs');
 const handlebars = require('handlebars');
+const upload = require('./upload');
 require('dotenv').config(); 
 const app = express();
 const port = 3001;
@@ -190,8 +191,23 @@ app.use('/mydrive', (req, res, next) => {
     }
 }, serveIndex(path.join(__dirname, 'ftp'), {
     icons: true,
-    stylesheet: './public/css/ftp.css'
+    stylesheet: './public/css/ftp.css',
+    template: './temp.html'
 }));
+
+// Middleware personalizado para agregar req.session.user.id al cuerpo de la solicitud
+app.use('/upload', (req, res, next) => {
+    console.log('/middleware',req.session)
+    req.body.id = req.session.user.id;
+    next();
+});
+
+  // Configura la ruta para manejar las subidas de archivos
+app.post('/upload', upload.single('file'), (req, res) => {
+    console.log('/upload');
+    // Handle the uploaded file
+    res.json({ message: 'File uploaded successfully!' });
+});
 
 app.use(handleNotFound);
 

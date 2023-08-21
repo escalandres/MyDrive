@@ -1,4 +1,10 @@
-* {
+<!DOCTYPE html>
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>listing directory /mydrive/</title>
+    <style>* {
 margin: 0;
 padding: 0;
 outline: 0;
@@ -287,19 +293,144 @@ background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAQA
 
 li{
     width: 15% !important;
+}#files .icon-directory .name {
+  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAABGdBTUEAALGPC/xhBQAAAWtQTFRFAAAA/PPQ9Nhc2q402qQ12qs2/PTX2pg12p81+/LM89NE9dto2q82+/fp2rM22qY39d6U+/bo2qo2/frx/vz32q812qs12qE279SU8c4w9NZP+/LK//367s9y7s925cp0/vzw9t92//342po2/vz25s1579B6+OSO2bQ0/v799NyT8tE79dld8Msm+OrC/vzx79KA2IYs7s6I9d6R4cJe9+OF/PLI/fry79OF/v30//328tWB89RJ8c9p8c0u9eCf//7+9txs6sts5Mdr+++5+u2z/vrv+/fq6cFz8dBs8tA57cpq+OaU9uGs27Y8//799NdX/PbY9uB89unJ//z14sNf+emh+emk+vDc+uys9+OL8dJy89NH+eic8tN5+OaV+OWR9N2n9dtl9t529+KF9+GB9Nue9NdU8tR/9t5y89qW9dpj89iO89eG/vvu2pQ12Y4z/vzy2Ict/vvv48dr/vzz4sNg///+2Igty3PqwQAAAAF0Uk5TAEDm2GYAAACtSURBVBjTY2AgA2iYlJWVhfohBPg0yx38y92dS0pKVOVBAqIi6sb2vsWWpfrFeTI8QAEhYQEta28nCwM1OVleZqCAmKCEkUdwYWmhQnFeOStQgL9cySqkNNDHVJGbiY0FKCCuYuYSGRsV5KgjxcXIARRQNncNj09JTgqw0ZbkZAcK5LuFJaRmZqfHeNnpSucDBQoiEtOycnIz4qI9bfUKQA6pKKqAgqIKQyK8BgAZ5yfODmnHrQAAAABJRU5ErkJggg==);
 }
-
+#files .icon-text .name {
+  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAQAAAC1+jfqAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAADoSURBVBgZBcExblNBGAbA2ceegTRBuIKOgiihSZNTcC5LUHAihNJR0kGKCDcYJY6D3/77MdOinTvzAgCw8ysThIvn/VojIyMjIyPP+bS1sUQIV2s95pBDDvmbP/mdkft83tpYguZq5Jh/OeaYh+yzy8hTHvNlaxNNczm+la9OTlar1UdA/+C2A4trRCnD3jS8BB1obq2Gk6GU6QbQAS4BUaYSQAf4bhhKKTFdAzrAOwAxEUAH+KEM01SY3gM6wBsEAQB0gJ+maZoC3gI6iPYaAIBJsiRmHU0AALOeFC3aK2cWAACUXe7+AwO0lc9eTHYTAAAAAElFTkSuQmCC);
+}
 #drop-zone {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.1);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 24px;
-    color: #333;
-    cursor: pointer;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  color: #333;
+  cursor: pointer;
 }
+</style>
+    <script>
+      function $(id){
+        var el = 'string' == typeof id
+          ? document.getElementById(id)
+          : id;
+
+        el.on = function(event, fn){
+          if ('content loaded' == event) {
+            event = window.attachEvent ? "load" : "DOMContentLoaded";
+          }
+          el.addEventListener
+            ? el.addEventListener(event, fn, false)
+            : el.attachEvent("on" + event, fn);
+        };
+
+        el.all = function(selector){
+          return $(el.querySelectorAll(selector));
+        };
+
+        el.each = function(fn){
+          for (var i = 0, len = el.length; i < len; ++i) {
+            fn($(el[i]), i);
+          }
+        };
+
+        el.getClasses = function(){
+          return this.getAttribute('class').split(/\s+/);
+        };
+
+        el.addClass = function(name){
+          var classes = this.getAttribute('class');
+          el.setAttribute('class', classes
+            ? classes + ' ' + name
+            : name);
+        };
+
+        el.removeClass = function(name){
+          var classes = this.getClasses().filter(function(curr){
+            return curr != name;
+          });
+          this.setAttribute('class', classes.join(' '));
+        };
+
+        return el;
+      }
+
+      function search() {
+        var str = $('search').value.toLowerCase();
+        var links = $('files').all('a');
+
+        links.each(function(link){
+          var text = link.textContent.toLowerCase();
+
+          if ('..' == text) return;
+          if (str.length && ~text.indexOf(str)) {
+            link.addClass('highlight');
+          } else {
+            link.removeClass('highlight');
+          }
+        });
+      }
+
+      $(window).on('content loaded', function(){
+        $('search').on('keyup', search);
+      });
+    </script>
+  </head>
+  <body class="directory">
+    <input id="search" type="text" placeholder="Search" autocomplete="off">
+    <div id="wrapper">
+      <h1><a href="http://localhost:3001/">~</a> / <a href="http://localhost:3001/mydrive">mydrive</a> / </h1>
+      <ul id="files" class="view-tiles"><li><a href="http://localhost:3001/" class="icon icon-directory" title=".."><span class="name">..</span><span class="size"></span><span class="date"></span></a></li>
+
+      </ul>
+    </div>
+    <div id="drop-zone">
+      Arrastra y suelta archivos aquí para subirlos
+    </div>
+    
+</body>
+<script>
+  function handleDrop(event) {
+    event.preventDefault();
+    const files = event.dataTransfer.files;
+    uploadFiles(files);
+  }
+
+  function handleDragOver(event) {
+    event.preventDefault();
+  }
+
+  function uploadFiles(files) {
+    const formData = new FormData();
+
+    for (const file of files) {
+      formData.append('file', file);
+    }
+
+    const xhr = new XMLHttpRequest();
+    xhr.open('POST', 'http://localhost:3001/upload', true);
+
+    xhr.onload = function() {
+      if (xhr.status === 200) {
+        console.log('Archivos subidos con éxito');
+      } else {
+        console.error('Error al subir archivos');
+      }
+    };
+
+    xhr.send(formData);
+  }
+
+  document.addEventListener('DOMContentLoaded', function() {
+    const dropZone = document.getElementById('drop-zone');
+    dropZone.addEventListener('drop', handleDrop);
+    dropZone.addEventListener('dragover', handleDragOver);
+  });
+</script>
+
+</html>
