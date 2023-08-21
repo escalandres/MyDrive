@@ -51,15 +51,6 @@ const authenticationMiddleware = (req, res, next) => {
     next();
 };
 
-//   // Middleware de redirección a '/ftp/:userId'
-// const redirectToUserFtp = (req, res, next) => {
-//     if (req.url === '/mydrive') {
-//       // Redirige a '/ftp/:userId' si el usuario está autenticado
-//         return res.redirect(`/ftp/${req.session.user.id}`);
-//     }
-//     next();
-// };
-  
 // Middleware para manejar rutas no encontradas
 const handleNotFound = (req, res, next) => {
     res.status(404).sendFile(path.join(__dirname, 'views/error.html'));
@@ -68,7 +59,6 @@ const handleNotFound = (req, res, next) => {
 // Aplicar los middlewares en orden
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(authenticationMiddleware);
-// app.use(redirectToUserFtp);
 
 app.get('/', (req, res) => {
     if (!req.session.user) {
@@ -80,12 +70,10 @@ app.get('/', (req, res) => {
     res.redirect(`/mydrive`);
 });
 
-
 app.get('/login', (req,res)=>{
     console.log(req.url)
     res.sendFile(path.join(__dirname, 'views/login.html'))
 })
-
 
 app.post('/login', (req, res) => {
     console.log('iniciar login');
@@ -125,7 +113,6 @@ app.get('/register', (req,res)=>{
     console.log(req.url)
     res.sendFile(path.join(__dirname, 'views/register.html'))
 })
-
 
 app.post('/register', (req, res) => {
     console.log('iniciar login');
@@ -170,35 +157,6 @@ app.get('/logout', (req, res) => {
     });
 });
 
-
-// // Definir middleware para servir archivos estáticos
-// app.use('/mydrive', (req, res, next) => {
-//     console.log('servir drive')
-//     console.log(req.session)
-//     // Construir la ruta de la carpeta de FTP del usuario
-//     const userFtpPath = path.join(__dirname, `ftp/${req.session.user.id}`);
-//     console.log('userFtpPath',userFtpPath)
-//     // Verificar si la ruta existe (carpeta de FTP del usuario)
-//     if (fs.existsSync(userFtpPath)) {
-//         // Servir contenido estático de la carpeta de FTP del usuario
-//         express.static(userFtpPath)(req, res, next);
-//     } else {
-//         // Carpeta no encontrada
-//         res.status(404).send('Carpeta no encontrada');
-//     }
-    
-// });
-
-// app.use('/mydrive', serveIndex(path.join(__dirname, 'ftp'), { 
-//     icons: true,
-//     stylesheet: './public/css/ftp.css'
-// }));
-
-// Definir middleware para servir el índice de la carpeta
-// app.use('/ftp', serveIndex(path.join(__dirname, 'ftp'), { 
-//     icons: true
-// }));
-
 app.use('/mydrive', (req, res, next) => {
     if (req.session && req.session.user) {
         const userId = req.session.user.id;
@@ -234,7 +192,6 @@ app.use('/mydrive', (req, res, next) => {
     icons: true,
     stylesheet: './public/css/ftp.css'
 }));
-
 
 app.use(handleNotFound);
 
