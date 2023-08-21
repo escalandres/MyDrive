@@ -7,11 +7,17 @@ const handlebars = require('handlebars');
 require('dotenv').config(); 
 const app = express();
 const port = 3001;
-const admin = {
-    email: "admin@admin.com",
-    password: "password",
-    userId: "0001"
-}
+const database = [
+    { email: "admin@admin.com", password: "password", userId: "0001" },
+    { email: "test@test.com", password: "1234567890", userId: "0002" },
+    { email: "prueba@prueba.com", password: "holamundo", userId: "0003" },
+    { email: "user@user.com", password: "usuario", userId: "0004" },
+]
+
+function findUser(email) {
+    return database.find(item => item.email === email);
+  }
+
 
 // Configuración de express-session
 app.use(session({
@@ -35,21 +41,16 @@ app.use(express.urlencoded({extended: false}));
 
 //Middlewares
 const authenticationMiddleware = (req, res, next) => {
-    console.log('url',req.url)
     if (req.url.startsWith("/mydrive")) {
       // Verificar si el usuario no está autenticado
-      if (!req.session || !req.session.user) {
-        console.log('sesion',req.session)
+    if (!req.session || !req.session.user) {
         console.log('Usuario no autenticado. Redirigiendo a /login');
         return res.redirect('/login');
-      }
     }
-    
+    }
     next();
 };
-  
 
-  
 //   // Middleware de redirección a '/ftp/:userId'
 // const redirectToUserFtp = (req, res, next) => {
 //     if (req.url === '/mydrive') {
@@ -92,17 +93,18 @@ app.post('/login', (req, res) => {
         const email = req.body.email;
         const password = req.body.password;
         console.log(email, password);
-        
+        const result = findUser(email)
+        console.log('result', result)
         // Verificar si las credenciales son válidas
-        if (email === admin.email && password === admin.password) {
+        if (email === result.email && password === result.password) {
             if (req.session) {
                 // Actualizar la sesión existente con la información del usuario
                 console.log('si')
-                req.session.user = { id: admin.userId, email: admin.email };
+                req.session.user = { id: result.userId, email: result.email };
             } else {
                 // Si no existe una sesión, crear una nueva
                 console.log('no')
-                req.session = { user: { id: admin.userId, email: admin.email } };
+                req.session = { user: { id: result.userId, email: result.email } };
             }
             
             console.log(req.session);

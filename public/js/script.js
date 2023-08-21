@@ -39,7 +39,7 @@ form.addEventListener('submit', async (event) => {
     const data = await response.json();
     if (!data.success) {
         // Mostrar un mensaje de error si el inicio de sesión falla
-        alert('Inicio de sesión fallido');
+        alert(data.message);
     }else{
         window.location.href = '/mydrive'
     }
