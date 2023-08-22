@@ -6,7 +6,8 @@ const fs = require('fs'); // Importa el módulo fs
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     console.log('hola')
-    const subfolder = req.body.id; // Obtener el valor del campo 'id' del JSON
+    console.log('body',req.userId)
+    const subfolder = req.userId; // Obtener el valor del campo 'id' del JSON
     console.log(subfolder);
     const destinationPath = path.join(__dirname,'ftp', subfolder);
     console.log('destination',destinationPath)

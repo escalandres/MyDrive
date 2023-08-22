@@ -192,13 +192,14 @@ app.use('/mydrive', (req, res, next) => {
 }, serveIndex(path.join(__dirname, 'ftp'), {
     icons: true,
     stylesheet: './public/css/ftp.css',
-    template: './temp.html'
+    // template: './temp.html'
 }));
 
 // Middleware personalizado para agregar req.session.user.id al cuerpo de la solicitud
 app.use('/upload', (req, res, next) => {
-    console.log('/middleware',req.session)
-    req.body.id = req.session.user.id;
+    console.log('/middlewar',req.session)
+    req.userId = req.session.user.id;
+    console.log('req.',req.userId)
     next();
 });
 
