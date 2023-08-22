@@ -3,6 +3,7 @@ const session = require('express-session');
 const serveIndex = require('serve-index')
 const path = require('path')
 const fs = require('fs');
+const fc = require('fs').promises;
 const handlebars = require('handlebars');
 const upload = require('./upload');
 require('dotenv').config(); 
@@ -72,7 +73,6 @@ app.get('/', (req, res) => {
 });
 
 app.get('/login', (req,res)=>{
-    console.log(req.url)
     res.sendFile(path.join(__dirname, 'views/login.html'))
 })
 
@@ -192,8 +192,59 @@ app.use('/mydrive', (req, res, next) => {
 }, serveIndex(path.join(__dirname, 'ftp'), {
     icons: true,
     stylesheet: './public/css/ftp.css',
-    // template: './temp.html'
-}));
+    template: './test.html'
+})); 
+
+// async function generatePageContent(userId) {
+//     try {
+//         const userFtpPath = path.join(__dirname, `ftp/${userId}`);
+//         const files = await fc.readdir(userFtpPath);
+
+//         // Generar el contenido HTML con la lista de archivos
+//         let fileList = '';
+//         files.forEach(file => {
+//             fileList += `<li><a href="/mydrive/${userId}/${file}">${file}</a></li>`;
+//         });
+
+//         const pageContent = `
+//             <!DOCTYPE html>
+//             <html>
+//             <head>
+//                 <!-- Agrega tus encabezados de estilo y metadatos aquí -->
+//             </head>
+//             <body>
+//                 <h1>Archivos en tu carpeta de usuario</h1>
+//                 <ul>${fileList}</ul>
+//                 <!-- Agrega otros elementos HTML según sea necesario -->
+//             </body>
+//             </html>
+//         `;
+
+//         return pageContent;
+//     } catch (error) {
+//         console.error('Error al generar el contenido de la página:', error);
+//         return '';
+//     }
+// }
+
+// app.get('/mydrive', (req, res) => {
+//     if (req.session && req.session.user) {
+//         const userId = req.session.user.id;
+
+//         generatePageContent(userId)
+//             .then(pageContent => {
+//                 res.send(pageContent);
+//             })
+//             .catch(error => {
+//                 res.status(500).send('Error al generar la página');
+//             });
+//     } else {
+//         res.status(401).redirect('/login');
+//     }
+// });
+
+
+
 
 // Middleware personalizado para agregar req.session.user.id al cuerpo de la solicitud
 app.use('/upload', (req, res, next) => {
