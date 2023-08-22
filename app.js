@@ -18,7 +18,7 @@ const database = [
 
 function findUser(email) {
     return database.find(item => item.email === email);
-  }
+}
 
 
 // Configuración de express-session
@@ -46,7 +46,7 @@ const authenticationMiddleware = (req, res, next) => {
     if (req.url.startsWith("/mydrive")) {
       // Verificar si el usuario no está autenticado
     if (!req.session || !req.session.user) {
-        console.log('Usuario no autenticado. Redirigiendo a /login');
+        //console.log('Usuario no autenticado. Redirigiendo a /login');
         return res.redirect('/login');
     }
     }
@@ -77,26 +77,26 @@ app.get('/login', (req,res)=>{
 })
 
 app.post('/login', (req, res) => {
-    console.log('iniciar login');
+    //console.log('iniciar login');
     try {
         const email = req.body.email;
         const password = req.body.password;
-        console.log(email, password);
+        //console.log(email, password);
         const result = findUser(email)
-        console.log('result', result)
+        //console.log('result', result)
         // Verificar si las credenciales son válidas
         if (email === result.email && password === result.password) {
             if (req.session) {
                 // Actualizar la sesión existente con la información del usuario
-                console.log('si')
+                //console.log('si')
                 req.session.user = { id: result.userId, email: result.email };
             } else {
                 // Si no existe una sesión, crear una nueva
-                console.log('no')
+                //console.log('no')
                 req.session = { user: { id: result.userId, email: result.email } };
             }
             
-            console.log(req.session);
+            //console.log(req.session);
             //return res.redirect('/mydrive');
             res.status(200).json({ success: true });
         } else {
@@ -111,30 +111,30 @@ app.post('/login', (req, res) => {
 });
 
 app.get('/register', (req,res)=>{
-    console.log(req.url)
+    //console.log(req.url)
     res.sendFile(path.join(__dirname, 'views/register.html'))
 })
 
 app.post('/register', (req, res) => {
-    console.log('iniciar login');
+    //console.log('iniciar login');
     try {
         const email = req.body.email;
         const password = req.body.password;
-        console.log(email, password);
+        //console.log(email, password);
         
         // Verificar si las credenciales son válidas
         if (email === admin.email && password === admin.password) {
             if (req.session) {
                 // Actualizar la sesión existente con la información del usuario
-                console.log('si')
+                //console.log('si')
                 req.session.user = { id: admin.userId, email: admin.email };
             } else {
                 // Si no existe una sesión, crear una nueva
-                console.log('no')
+                //console.log('no')
                 req.session = { user: { id: admin.userId, email: admin.email } };
             }
             
-            console.log(req.session);
+            //console.log(req.session);
             //return res.redirect('/mydrive');
             res.status(200).json({ success: true });
         } else {
@@ -148,13 +148,15 @@ app.post('/register', (req, res) => {
     }
 });
 
-app.get('/logout', (req, res) => {
+app.post('/logout', (req, res) => {
+    //console.log('cerrarsesion')
     // Destruir la sesión y redirigir a la página de inicio de sesión
     req.session.destroy((err) => {
         if (err) {
             console.error('Error al destruir la sesión:', err);
+            res.status(500).json({success: false})
         }
-        res.redirect('/login');
+        res.status(200).json({success: true})
     });
 });
 
@@ -197,15 +199,15 @@ app.use('/mydrive', (req, res, next) => {
 
 // Middleware personalizado para agregar req.session.user.id al cuerpo de la solicitud
 app.use('/upload', (req, res, next) => {
-    console.log('/middlewar',req.session)
+    //console.log('/middlewar',req.session)
     req.userId = req.session.user.id;
-    console.log('req.',req.userId)
+    //console.log('req.',req.userId)
     next();
 });
 
   // Configura la ruta para manejar las subidas de archivos
 app.post('/upload', upload.single('file'), (req, res) => {
-    console.log('/upload');
+    //console.log('/upload');
     // Handle the uploaded file
     res.json({ message: 'File uploaded successfully!' });
 });

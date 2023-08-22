@@ -56,12 +56,11 @@ function uploadFiles(files) {
     for (const file of files) {
         formData.append('file', file);
     }
-
+    closeModal();
     const xhr = new XMLHttpRequest();
     xhr.open('POST', 'http://localhost:3001/upload', true);
 
     xhr.onload = function() {
-        closeModal();
         if (xhr.status === 200) {
             console.log('Archivos subidos con éxito');
             showAlert('Archivos subidos con éxito','success')
@@ -77,6 +76,52 @@ function uploadFiles(files) {
 
 // Función para cerrar el modal
 function closeModal() {
-    const uploadModal = new bootstrap.Modal(document.getElementById('uploadModal'));
-    uploadModal.hide();
+    const closeButton = document.querySelector('[data-bs-dismiss="modal"]');
+    closeButton.click();
 }
+
+document.getElementById('logoutBtn').addEventListener('click',()=>{
+    Swal.fire({
+        title: '¿Quieres cerrar sesión?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Cerrar sesión'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            // Realizar una solicitud POST a '/logout'
+            fetch('/logout', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                    // Aquí puedes agregar más encabezados según sea necesario
+                },
+              // Puedes enviar datos en el cuerpo de la solicitud si es necesario
+              // body: JSON.stringify({ key: value })
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Manejar la respuesta de la solicitud, si es necesario
+                Swal.fire({
+                position: 'top-end',
+                icon: 'success',
+                title: 'Cerrando sesión...',
+                showConfirmButton: false,
+                timer: 1500
+                })
+                window.location.href = "/"
+            })
+            .catch(error => {
+              // Manejar errores, si los hay
+                console.error('Error:', error);
+                Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Something went wrong!',
+                })
+            });
+        }
+    });
+})
