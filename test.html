@@ -75,11 +75,17 @@
     </script>
   </head>
   <body class="directory">
-    <input id="search" type="text" placeholder="Search" autocomplete="off" />
+    <!-- <input id="search" type="text" placeholder="Search" autocomplete="off" /> -->
+    <div class="row mb-4">
+        <div class="col-6">
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#uploadModal">Subir Archivos</button>
+        </div>
+        <div class="col-6">
+            <input id="search" class="form-control me-2 w-50 mx-auto" type="search" placeholder="Search" aria-label="Search" autocomplete="off"/>
+        </div>
+    </div>
+
     <div id="wrapper">     
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#uploadModal">
-            Subir Archivos
-          </button>
         <h1><a href="/">~</a>{linked-path}</h1>
       {files}
     </div>

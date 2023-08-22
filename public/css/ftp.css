@@ -99,7 +99,7 @@ ul#files li a.highlight {
 background: #ffff4f;
 border-color: #E9DC51;
 }
-#search {
+/* #search {
 display: block;
 position: fixed;
 top: 20px;
@@ -125,7 +125,7 @@ color: #888;
 #search:focus {
 width: 120px;
 opacity: 1.0; 
-}
+} */
 
 /*views*/
 #files span {
@@ -189,7 +189,7 @@ body {
     line-height: 16px;
     padding: 0;
 }
-#search {
+/* #search {
     position: static;
     width: 100%;
     font-size: 2em;
@@ -204,7 +204,7 @@ body {
     width: 100%;
     border: 0;
     opacity: 1;
-}
+} */
 .directory h1 {
     font-size: 2em;
     line-height: 1.5em;
@@ -266,7 +266,7 @@ background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAQA
     display: none;
 }
 
-#search{
+/* #search{
     display: block;
     width: 20%;
     padding: 0.375rem 0.75rem;
@@ -281,9 +281,10 @@ background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAQA
 }
 
 #search:focus {
-    /* Anular cualquier propiedad de estilo que esté causando el cambio de ancho */
-    width: auto !important; /* Puedes usar "auto" o un valor fijo, según tus necesidades */
-}
+    
+    width: auto !important; 
+} 
+*/
 
 li{
     width: 15% !important;
