@@ -5,8 +5,8 @@ const path = require('path')
 const fs = require('fs');
 const fc = require('fs').promises;
 const handlebars = require('handlebars');
-const upload = require('./upload');
-const createRouter = require('./create');
+const upload = require('./src/modules/upload');
+const createRouter = require('./src/modules/create');
 
 
 
@@ -198,7 +198,7 @@ app.use('/mydrive', (req, res, next) => {
 }, serveIndex(path.join(__dirname, 'ftp'), {
     icons: true,
     stylesheet: './public/css/ftp.css',
-    template: './template.html'
+    template: './views/template.html'
 })); 
 
 // Middleware personalizado para agregar req.session.user.id al cuerpo de la solicitud
