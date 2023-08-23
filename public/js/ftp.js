@@ -50,12 +50,28 @@ dropZone.addEventListener('click', () => {
     fileInput.click();
 });
 
+function generarPath(cadena) {
+    const subcadena = "~ / mydrive / ";
+    const cadenaSinSubcadena = cadena.replace(subcadena, "");
+    const cadenaSinEspacios = cadenaSinSubcadena.replace(/ /g, "");
+    let cadenaProcesada = cadenaSinEspacios.slice(0, -1);
+    if(cadenaProcesada === "~/mydrive") cadenaProcesada = "";
+    return cadenaProcesada;
+}
+
 function uploadFiles(files) {
     const formData = new FormData();
-
+    const path = document.getElementById('path').innerText;
+    console.log(path)
+    alert(path)
+    const newPath = generarPath(path)
+    
+    formData.append('ruta',newPath)
     for (const file of files) {
         formData.append('file', file);
     }
+    console.log(formData)
+    alert(newPath)
     closeModal();
     const xhr = new XMLHttpRequest();
     xhr.open('POST', 'http://localhost:3001/upload', true);

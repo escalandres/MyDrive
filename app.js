@@ -203,15 +203,12 @@ app.use('/mydrive', (req, res, next) => {
 
 // Middleware personalizado para agregar req.session.user.id al cuerpo de la solicitud
 app.use('/upload', (req, res, next) => {
-    //console.log('/middlewar',req.session)
     req.userId = req.session.user.id;
-    //console.log('req.',req.userId)
     next();
 });
 
   // Configura la ruta para manejar las subidas de archivos
 app.post('/upload', upload.single('file'), (req, res) => {
-    //console.log('/upload');
     // Handle the uploaded file
     res.json({ message: 'File uploaded successfully!' });
 });
