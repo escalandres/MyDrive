@@ -18,6 +18,7 @@ const database = [
     { email: "test@test.com", password: "1234567890", userId: "0002" },
     { email: "prueba@prueba.com", password: "holamundo", userId: "0003" },
     { email: "user@user.com", password: "usuario", userId: "0004" },
+    { email: "testing@testing.com", password: "testing", userId: "0005" },
 ]
 
 function findUser(email) {
@@ -124,27 +125,31 @@ app.post('/register', (req, res) => {
     try {
         const email = req.body.email;
         const password = req.body.password;
-        //console.log(email, password);
-        
+        const name = req.body.name;
+        const lastname = req.body.name;
+        console.log(email, password, name, lastname);
+        const userFolder = path.join(__dirname,'ftp','0005')
+        fs.promises.mkdir(userFolder)
+        res.status(200).json({success: true})
         // Verificar si las credenciales son válidas
-        if (email === admin.email && password === admin.password) {
-            if (req.session) {
-                // Actualizar la sesión existente con la información del usuario
-                //console.log('si')
-                req.session.user = { id: admin.userId, email: admin.email };
-            } else {
-                // Si no existe una sesión, crear una nueva
-                //console.log('no')
-                req.session = { user: { id: admin.userId, email: admin.email } };
-            }
+        // if (email === admin.email && password === admin.password) {
+        //     if (req.session) {
+        //         // Actualizar la sesión existente con la información del usuario
+        //         //console.log('si')
+        //         req.session.user = { id: admin.userId, email: admin.email };
+        //     } else {
+        //         // Si no existe una sesión, crear una nueva
+        //         //console.log('no')
+        //         req.session = { user: { id: admin.userId, email: admin.email } };
+        //     }
             
-            //console.log(req.session);
-            //return res.redirect('/mydrive');
-            res.status(200).json({ success: true });
-        } else {
-            // Enviar respuesta JSON indicando fallo
-            res.status(401).json({ success: false });
-        }
+        //     //console.log(req.session);
+        //     //return res.redirect('/mydrive');
+        //     res.status(200).json({ success: true });
+        // } else {
+        //     // Enviar respuesta JSON indicando fallo
+        //     res.status(401).json({ success: false });
+        // }
     } catch (error) {
         console.error(error);
         // Enviar respuesta JSON indicando fallo
