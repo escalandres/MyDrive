@@ -265,3 +265,27 @@ li{
     height: 100%;
 }
 
+.form-switch .form-switch-input {
+    font-size: 1.5em;
+    width: 3em !important;
+    margin: 0 1em 0 0 ;
+}
+
+:root{
+    --bs-body-color: #212529;
+    --letter-color: #f6f6f6;
+}
+/*--------------------------Seccion de temas---------------------------------*/
+.dark-theme {
+    background-color: var(--bs-body-color) !important;
+    color: var(--letter-color) !important;
+}
+
+.dark-theme .navbar, .dark-theme .toast, .dark-theme .toast-header, .dark-theme footer {
+    background-color: rgb(35, 37, 41) !important;
+    color: var(--letter-color) !important;
+}
+
+.dark-theme .navbar a {
+    color: var(--letter-color) !important;
+}
