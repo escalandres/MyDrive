@@ -84,6 +84,7 @@
                     </div>
                     <div class="col-2 d-flex justify-content-center">
                         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#uploadModal">Subir Archivos</button>
+                        <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#createModal">Crear Carpeta</button>
                     </div>
                     <div class="col-6 d-flex justify-content-center">
                         <input id="search" class="form-control w-100" type="search" placeholder="Search" aria-label="Search" autocomplete="off"/>
@@ -146,6 +147,25 @@
                 </div>
             </div>
         </div>
+
+        <div class="modal fade" id="createModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Nueva Carpeta</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <input class="form-control" type="text" name="folderName" id="folderName" placeholder="Escribe el nombre de tu carpeta"/>
+                    </div>
+                    <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button id="createFolderBtn" type="button" class="btn btn-primary">Crear Carpeta</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <div class="container mt-4">
             <div class="floating-alerts" id="alerts-container">
             <!-- Aquí se mostrarán las alertas -->

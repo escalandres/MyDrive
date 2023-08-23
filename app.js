@@ -6,6 +6,10 @@ const fs = require('fs');
 const fc = require('fs').promises;
 const handlebars = require('handlebars');
 const upload = require('./upload');
+const createRouter = require('./create');
+
+
+
 require('dotenv').config(); 
 const app = express();
 const port = 3001;
@@ -211,6 +215,17 @@ app.post('/upload', upload.single('file'), (req, res) => {
     // Handle the uploaded file
     res.json({ message: 'File uploaded successfully!' });
 });
+
+app.use('/create-folder', (req, res, next) => {
+    //console.log('/middlewar',req.session)
+    console.log('folder',req.body)
+    req.folderName = req.body.folderName;
+    //console.log('req.',req.userId)
+    next();
+});
+
+// Create Folder
+app.use(createRouter);
 
 app.use(handleNotFound);
 

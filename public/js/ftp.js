@@ -125,3 +125,39 @@ document.getElementById('logoutBtn').addEventListener('click',()=>{
         }
     });
 })
+
+document.getElementById('createFolderBtn').addEventListener('click',()=>{
+    // Supongamos que estás ejecutando esto en un navegador web
+
+    // Datos para la solicitud POST
+    const folderName = document.getElementById('folderName').value; // Reemplaza con el nombre de la carpeta que deseas crear
+    alert(folderName)
+    // Objeto FormData para enviar el nombre de la carpeta
+    // Configuración de la solicitud POST
+    const requestOptions = {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({folderName: folderName}),
+    };
+
+    // Realizar la solicitud POST
+    fetch('/create-folder', requestOptions)
+    .then(response => response.json())
+    .then(data => {
+        console.log(data); // Mensaje de respuesta del servidor
+        if(data.success){
+            showAlert('Se ha creado la carpeta','success')
+            window.location.href = "/mydrive"
+        }
+        else{
+            showAlert('Ocurrió un error al crear la carpeta','danger')
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        showAlert('Ocurrió un error al crear la carpeta','danger')
+    });
+
+})
