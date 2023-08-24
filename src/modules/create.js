@@ -8,7 +8,7 @@ router.post('/create-folder', async (req, res) => {
 //   const userId = req.userId
   console.log('subfolder',subfolder)
 //   console.log('userId',userId)
-  const destinationPath = path.join(__dirname, 'ftp', subfolder);
+  const destinationPath = path.join(__dirname, '../../', 'ftp', subfolder);
 
   const folderName = req.body.folderName;
   console.log(req.body)

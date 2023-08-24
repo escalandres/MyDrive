@@ -7,8 +7,10 @@ const fc = require('fs').promises;
 const handlebars = require('handlebars');
 const upload = require('./src/modules/upload');
 const createRouter = require('./src/modules/create');
-
-
+const bcrypt = require('bcrypt');
+const crypto = require('crypto');
+const mongoose = require('mongoose');
+const User = require('./model/user');
 
 require('dotenv').config(); 
 const app = express();
@@ -21,10 +23,40 @@ const database = [
     { email: "testing@testing.com", password: "testing", userId: "0005" },
 ]
 
+const DATABASE = process.env.DATABASE_URL;
+
+mongoose.connect(DATABASE);
+
 function findUser(email) {
     return database.find(item => item.email === email);
 }
 
+
+// const { MongoClient, ServerApiVersion } = require('mongodb');
+// const uri = "mongodb+srv://<username>:<password>@mydrive.uyxx9lj.mongodb.net/?retryWrites=true&w=majority";
+
+// // Create a MongoClient with a MongoClientOptions object to set the Stable API version
+// const client = new MongoClient(uri, {
+//   serverApi: {
+//     version: ServerApiVersion.v1,
+//     strict: true,
+//     deprecationErrors: true,
+//   }
+// });
+
+// async function run() {
+//   try {
+//     // Connect the client to the server	(optional starting in v4.7)
+//     await client.connect();
+//     // Send a ping to confirm a successful connection
+//     await client.db("admin").command({ ping: 1 });
+//     console.log("Pinged your deployment. You successfully connected to MongoDB!");
+//   } finally {
+//     // Ensures that the client will close when you finish/error
+//     await client.close();
+//   }
+// }
+// run().catch(console.dir);
 
 // Configuración de express-session
 app.use(session({
@@ -81,33 +113,43 @@ app.get('/login', (req,res)=>{
     res.sendFile(path.join(__dirname, 'views/login.html'))
 })
 
-app.post('/login', (req, res) => {
-    //console.log('iniciar login');
+app.post('/login', async (req, res) => {
+    console.log('iniciar login');
     try {
         const email = req.body.email;
         const password = req.body.password;
         //console.log(email, password);
-        const result = findUser(email)
+        // const result = findUser(email)
+        const user = await User.findOne({email: email}).exec();
+        if(!user){
+            return res.status(404).json({success: false, message: "The user does not exist"})
+        }
+        if(!bcrypt.compareSync(password, user.hashedPassword)) {
+            return res.status(404).json({success: false, message: "The password is invalid"})
+        }else{
+            req.session.user = { id: user.userId, email: user.email };
+            return res.status(200).json({ success: true });
+        }
         //console.log('result', result)
         // Verificar si las credenciales son válidas
-        if (email === result.email && password === result.password) {
-            if (req.session) {
-                // Actualizar la sesión existente con la información del usuario
-                //console.log('si')
-                req.session.user = { id: result.userId, email: result.email };
-            } else {
-                // Si no existe una sesión, crear una nueva
-                //console.log('no')
-                req.session = { user: { id: result.userId, email: result.email } };
-            }
+        // if (email === result.email && password === result.password) {
+        //     if (req.session) {
+        //         // Actualizar la sesión existente con la información del usuario
+        //         //console.log('si')
+        //         req.session.user = { id: result.userId, email: result.email };
+        //     } else {
+        //         // Si no existe una sesión, crear una nueva
+        //         //console.log('no')
+        //         req.session = { user: { id: result.userId, email: result.email } };
+        //     }
             
-            //console.log(req.session);
-            //return res.redirect('/mydrive');
-            res.status(200).json({ success: true });
-        } else {
-            // Enviar respuesta JSON indicando fallo
-            res.status(401).json({ success: false });
-        }
+        //     //console.log(req.session);
+        //     //return res.redirect('/mydrive');
+        //     res.status(200).json({ success: true });
+        // } else {
+        //     // Enviar respuesta JSON indicando fallo
+        //     res.status(401).json({ success: false });
+        // }
     } catch (error) {
         console.error(error);
         // Enviar respuesta JSON indicando fallo
@@ -120,17 +162,28 @@ app.get('/register', (req,res)=>{
     res.sendFile(path.join(__dirname, 'views/register.html'))
 })
 
-app.post('/register', (req, res) => {
+app.post('/register', async (req, res) => {
     //console.log('iniciar login');
     try {
         const email = req.body.email;
         const password = req.body.password;
-        const name = req.body.name;
-        const lastname = req.body.name;
+        const name = req.body.name + " "+ req.body.lastname;
+        const lastname = req.body.lastname;
+        const userId = crypto.randomBytes(16).toString('hex');
+        const hashedPassword = await bcrypt.hash(password, 10);
         console.log(email, password, name, lastname);
-        const userFolder = path.join(__dirname,'ftp','0005')
-        fs.promises.mkdir(userFolder)
-        res.status(200).json({success: true})
+        const response = await User.create({
+            userId, email, name, hashedPassword
+        })
+        console.log('response',response)
+        if(response){
+            const userFolder = path.join(__dirname,'ftp',userId)
+            fs.promises.mkdir(userFolder)
+            req.session.user = {id: userId, email: email}
+            res.status(200).json({success: true})
+        }
+        
+        // res.status(400).json({success: false})
         // Verificar si las credenciales son válidas
         // if (email === admin.email && password === admin.password) {
         //     if (req.session) {

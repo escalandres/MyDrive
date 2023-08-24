@@ -26,7 +26,7 @@ const storage = multer.diskStorage({
     const subfolder = req.userId; // Obtener el valor del campo 'id' del JSON
     const destPath = req.body.ruta;
     console.log('destPath',destPath)
-    const destinationPath = path.join(__dirname, 'ftp', subfolder,destPath);
+    const destinationPath = path.join(__dirname, '../../', 'ftp', subfolder,destPath);
     console.log('destination', destinationPath);
 
     fs.mkdir(destinationPath, { recursive: true }, (err) => {
@@ -39,7 +39,7 @@ const storage = multer.diskStorage({
   },
   filename: async (req, file, cb) => {
     const originalName = file.originalname;
-    const destinationPath = path.join(__dirname, 'ftp', req.userId, req.body.ruta);
+    const destinationPath = path.join(__dirname,'../../', 'ftp', req.userId, req.body.ruta);
 
     let newFilename = originalName;
     let counter = 1;
