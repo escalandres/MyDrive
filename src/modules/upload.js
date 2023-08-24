@@ -3,24 +3,6 @@ const path = require('path');
 const fs = require('fs'); // Importa el módulo fs
 // Set up storage for uploaded files
 
-// const storage = multer.diskStorage({
-//   destination: (req, file, cb) => {
-//     const subfolder = req.userId; // Obtener el valor del campo 'id' del JSON
-//     const destinationPath = path.join(__dirname,'ftp', subfolder);
-//     console.log('destination',destinationPath)
-//     fs.mkdir(destinationPath, { recursive: true }, (err) => {
-//         if (err) {
-//             console.error('Error al crear la carpeta:', err);
-//             return cb(err, null);
-//         }
-//         cb(null, destinationPath);
-//     });
-//   },
-//   filename: (req, file, cb) => {
-//     cb(null, Date.now() + '-' + file.originalname);
-//   }
-// });
-
 const storage = multer.diskStorage({
   destination: async (req, file, cb) => {
     const subfolder = req.userId; // Obtener el valor del campo 'id' del JSON

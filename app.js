@@ -126,30 +126,9 @@ app.post('/login', async (req, res) => {
         }
         if(!bcrypt.compareSync(password, user.hashedPassword)) {
             return res.status(404).json({success: false, message: "The password is invalid"})
-        }else{
-            req.session.user = { id: user.userId, email: user.email };
-            return res.status(200).json({ success: true });
         }
-        //console.log('result', result)
-        // Verificar si las credenciales son válidas
-        // if (email === result.email && password === result.password) {
-        //     if (req.session) {
-        //         // Actualizar la sesión existente con la información del usuario
-        //         //console.log('si')
-        //         req.session.user = { id: result.userId, email: result.email };
-        //     } else {
-        //         // Si no existe una sesión, crear una nueva
-        //         //console.log('no')
-        //         req.session = { user: { id: result.userId, email: result.email } };
-        //     }
-            
-        //     //console.log(req.session);
-        //     //return res.redirect('/mydrive');
-        //     res.status(200).json({ success: true });
-        // } else {
-        //     // Enviar respuesta JSON indicando fallo
-        //     res.status(401).json({ success: false });
-        // }
+        req.session.user = { id: user.userId, email: user.email };
+        return res.status(200).json({ success: true });
     } catch (error) {
         console.error(error);
         // Enviar respuesta JSON indicando fallo
@@ -176,33 +155,13 @@ app.post('/register', async (req, res) => {
             userId, email, name, hashedPassword
         })
         console.log('response',response)
-        if(response){
-            const userFolder = path.join(__dirname,'ftp',userId)
-            fs.promises.mkdir(userFolder)
-            req.session.user = {id: userId, email: email}
-            res.status(200).json({success: true})
+        if(!response){
+            return res.status(401).json({success: false, message: "Error al crear su cuenta de usuario. Inténtelo nuevamente"})
         }
-        
-        // res.status(400).json({success: false})
-        // Verificar si las credenciales son válidas
-        // if (email === admin.email && password === admin.password) {
-        //     if (req.session) {
-        //         // Actualizar la sesión existente con la información del usuario
-        //         //console.log('si')
-        //         req.session.user = { id: admin.userId, email: admin.email };
-        //     } else {
-        //         // Si no existe una sesión, crear una nueva
-        //         //console.log('no')
-        //         req.session = { user: { id: admin.userId, email: admin.email } };
-        //     }
-            
-        //     //console.log(req.session);
-        //     //return res.redirect('/mydrive');
-        //     res.status(200).json({ success: true });
-        // } else {
-        //     // Enviar respuesta JSON indicando fallo
-        //     res.status(401).json({ success: false });
-        // }
+        const userFolder = path.join(__dirname,'ftp',userId)
+        fs.promises.mkdir(userFolder)
+        req.session.user = {id: userId, email: email}
+        res.status(200).json({success: true})
     } catch (error) {
         console.error(error);
         // Enviar respuesta JSON indicando fallo
@@ -211,14 +170,13 @@ app.post('/register', async (req, res) => {
 });
 
 app.post('/logout', (req, res) => {
-    //console.log('cerrarsesion')
     // Destruir la sesión y redirigir a la página de inicio de sesión
     req.session.destroy((err) => {
         if (err) {
             console.error('Error al destruir la sesión:', err);
-            res.status(500).json({success: false})
+            return res.status(500).json({success: false, message: "Ha ocurrido un error con su petición. Inténtelo nuevamente"})
         }
-        res.status(200).json({success: true})
+        return res.status(200).json({success: true})
     });
 });
 
@@ -272,10 +230,7 @@ app.post('/upload', upload.single('file'), (req, res) => {
 });
 
 app.use('/create-folder', (req, res, next) => {
-    //console.log('/middlewar',req.session)
-    console.log('folder',req.body)
     req.folderName = req.body.folderName;
-    //console.log('req.',req.userId)
     next();
 });
 
