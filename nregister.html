@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <!-- bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"></link>
+    <link rel="stylesheet" href="nlogin.css">
+</head>
+<body>
+    <div class="container mt-4">
+        <div class="floating-alerts" id="alerts-container">
+        <!-- Aquí se mostrarán las alertas -->
+        </div>
+    </div>
+    <div id="panel" class="panel" style="display: none;"> 
+        <div class="contenedor">
+            <div class="spinner-border text-light spinne" style="width: 10rem; height: 10rem;" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid d-flex justify-content-center align-items-center r-p2">
+        <div class="card card-template flex-wrap r-form">
+            <div class="row">
+                <!-- <img id="logo" class="mb-4" src="img/Coffee Pet-LOGO1.svg" alt=""> -->
+                <i class="fa-solid fa-user"></i>
+            </div>
+            <h1 class="t2 s-weight-extrabold s-center s-mb-4">Registrate</h1>
+            <form id="registerForm">
+                <div class="element-group my-3">
+                    <label for="" class="form-label">Nombre</label>
+                    <div class="input-group">
+                        <input type="text" name="email" id="email" class="form-control" placeholder="John Smith" required>
+                    </div>
+                </div>
+                <div class="element-group my-3">
+                    <label for="" class="form-label">Correo Electrónico</label>
+                    <div class="input-group">
+                        <input type="text" name="email" id="email" class="form-control" placeholder="name@server.com" required>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="element-group my-3">
+                            <label for="" class="form-label">Contraseña</label>
+                            <div class="input-group">
+                                <input type="password" name="password" id="password" class="form-control" placeholder="Escribe tu contraseña" required>
+                                <span class="input-group-text btn btn-primary" id="passEye">
+                                    <i id="eye" class="fa-solid fa-eye"></i>
+                                    <i id="eyeSlash" class="fa-solid fa-eye-slash" style="display: none"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="element-group my-3">
+                            <label for="" class="form-label">Repetir Contraseña</label>
+                            <div class="input-group">
+                                <input type="password" name="repeat" id="repeat" class="form-control" placeholder="Repite tu contraseña" required>
+                                <span class="input-group-text btn btn-primary" id="r-passEye">
+                                    <i id="r-eye" class="fa-solid fa-eye"></i>
+                                    <i id="r-eyeSlash" class="fa-solid fa-eye-slash" style="display: none"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button id="b-registro" class="btn btn-primary w-100 my-3">Registrate</button>
+            </form>
+            <div class="bottom-text">
+                <p class="">
+                    <span class="">¿No tienes una cuenta?</span>
+                    <a href="register">
+                        <span class="">Regístrate gratis</span>
+                    </a> 
+                </p>
+                <a href="#">
+                    <span class="">¿Olvidaste tu contraseña?</span>
+                </a>
+            </div>
+        </div>
+    </div>
+    <script src="nregister.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script> 
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/js/all.min.js"></script>
+</body>
+</html>

@@ -4,10 +4,10 @@ document.getElementById('passEye').addEventListener('click', () => {
     if (pass.type === "password") {
         pass.type = "text";
         document.getElementById("eye").style.display = 'none';
-        document.getElementById("eyeSlash").style.display = 'inline';
+        document.getElementById("eyeSlash").style.display = '';
     } else {
         pass.type = "password";
-        document.getElementById("eye").style.display = 'inline';
+        document.getElementById("eye").style.display = '';
         document.getElementById("eyeSlash").style.display = 'none';
     }
 });
