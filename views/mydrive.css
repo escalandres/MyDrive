@@ -1,0 +1,86 @@
+/* Resetear estilos por defecto del navegador */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Estilos generales */
+body {
+    font-family: Arial, sans-serif;
+}
+
+/* Estilos de la barra de navegación */
+.navbar {
+    background-color: #333;
+    color: white;
+    padding: 10px;
+}
+
+/* Estilos de la barra lateral */
+.sidebar {
+    display: flex;
+    background-color: #555;
+    color: white;
+    width: 250px;
+    height: 100vh; /* 100% del alto de la ventana */
+    padding: 20px;
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
+/* Estilos del contenido principal */
+.content {
+    margin-left: 250px; /* Ancho de la barra lateral */
+    padding: 20px;
+}
+
+/* Estilos para la barra lateral */
+.sidebar-expanded, .sidebar-collapsed {
+    width: 280px;
+    height: 100vh;
+    transition: width 0.3s; /* Transición suave para el ancho */
+    background-color: #f8f9fa; /* Color de fondo */
+}
+
+/* Estilos para la barra lateral expandida */
+.sidebar-expanded {
+    padding: 20px;
+}
+
+/* Estilos para la barra lateral contraída */
+.sidebar-collapsed {
+    width: 4.5rem;
+    padding: 10px;
+}
+
+/* Cambio de estilo en el hover */
+.sidebar-expanded:hover {
+    width: 4.5rem;
+    padding: 10px;
+}
+
+/* Cambio de estilo para los enlaces en la barra lateral */
+.sidebar-expanded a, .sidebar-collapsed a {
+    color: #333;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+/* Cambio de color en el hover de los enlaces */
+.sidebar-expanded a:hover, .sidebar-collapsed a:hover {
+    color: #007bff;
+}
+
+/* Estilos para el contenido principal */
+.main-content {
+    flex: 1;
+    padding: 20px;
+    transition: margin-left 0.3s; /* Transición suave para el margen izquierdo */
+}
+
+/* Cambio de margen cuando la barra lateral se contrae */
+.main-container:hover .sidebar-collapsed ~ .main-content {
+    margin-left: 4.5rem; /* Ancho de la barra lateral contraída */
+}
