@@ -1,5 +1,18 @@
 :root{
     --active-link: #0d6efd;
+    --sidebar-grey: rgb(248,249,250);
+}
+
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+
+.nav-icon{
+    width: 30px;
+    height: 30px;
 }
 
 .input-container {
@@ -23,12 +36,15 @@
     
 }
 
+.sidebar {
+    background-color: var(--sidebar-grey); /* Color de fondo de la barra lateral */
+}
+
 .sidebar-item:hover{
     background-color: var(--active-link);
     color: azure!important;
 }
 
-.nav-icon{
-    width: 30px;
-    height: 30px;
+.h40{
+    height: 40px;
 }
