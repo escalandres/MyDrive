@@ -1,0 +1,34 @@
+:root{
+    --active-link: #0d6efd;
+}
+
+.input-container {
+    position: relative;
+}
+
+.icon-input {
+    padding-left: 35px !important; /* Espacio para el icono */
+}
+
+.icon {
+    position: absolute;
+    left: 11px; /* Posición del icono */
+    top: 11px; /* Posición del icono */
+    color: grey;
+}
+
+.form-switch .form-switch-input {
+    font-size: 1em;
+    width: 3rem !important;
+    
+}
+
+.sidebar-item:hover{
+    background-color: var(--active-link);
+    color: azure!important;
+}
+
+.nav-icon{
+    width: 30px;
+    height: 30px;
+}

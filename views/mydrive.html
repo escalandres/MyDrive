@@ -14,19 +14,23 @@
         <div class="container-fluid">
             <div class="row w-100">
                 <div class="col-2 d-flex justify-content-center">
-                    <!-- <img src="/img/files.svg" alt=""> -->
+                    <img class="nav-icon me-3" src="../public/img/favicon.svg" alt="">
                     <a class="navbar-brand" href="#">MyDrive</a>
                 </div>
                 <div class="col-1 d-flex justify-content-center">
 
                 </div>
                 <div class="col-7 d-flex justify-content-center">
-                    <input id="search" class="form-control w-100" type="search" placeholder="Search" aria-label="Search" autocomplete="off"/>
+                    <div class="input-container w-100">
+                        <input type="text" class="form-control icon-input" name="videoUrl" id="videoUrl" placeholder="Ingresa la URL de tu video de Youtube" required>
+                        <i class="fa-solid fa-magnifying-glass icon"></i>
+                    </div>
+                    <!-- <input id="search" class="form-control w-100" type="search" placeholder="Search" aria-label="Search" autocomplete="off"/> -->
                 </div>
                 <div class="col-1 d-flex justify-content-center align-items-center">
-                    <div class="form-check form-switch">
+                    <!-- <div class="form-check form-switch">
                         <input class="form-check-input form-switch-input" type="checkbox" role="switch" id="theme-toggle">
-                    </div>
+                    </div> -->
                 </div>
                 <div class="col-1 d-flex justify-content-center">
                     
@@ -61,55 +65,61 @@
                 </div>
                 <hr>
                     <ul class="nav nav-pills flex-column mb-auto">
-                        <li class="nav-item">
-                            <a href="#" class="nav-link active" aria-current="page">
+                        <li class="nav-item active">
+                            <a href="#" class="nav-link link-body-emphasis sidebar-item">
                                 <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#home"></use></svg>
-                                <i class="fa-solid fa-house"></i> Home
+                                <i class="fa-solid fa-house me-3"></i> Home
                             </a>
                         </li>
-                        <li>
-                            <a href="#" class="nav-link link-body-emphasis">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link link-body-emphasis sidebar-item">
                                 <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#speedometer2"></use></svg>
                                 Dashboard
                             </a>
                         </li>
-                        <li>
-                            <a href="#" class="nav-link link-body-emphasis">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link link-body-emphasis sidebar-item">
                                 <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#table"></use></svg>
                                 Orders
                             </a>
                         </li>
-                        <li>
-                            <a href="#" class="nav-link link-body-emphasis">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link link-body-emphasis sidebar-item">
                                 <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#grid"></use></svg>
                                 Products
                             </a>
                         </li>
-                        <li>
-                            <a href="#" class="nav-link link-body-emphasis">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link link-body-emphasis sidebar-item">
                                 <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#people-circle"></use></svg>
                                 Customers
                             </a>
                         </li>
                     </ul>
                 <hr>
-                <div>Modo oscuro</div>
-                <div class="dropdown">
-                  <a href="#" class="d-flex align-items-center link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                    <img src="https://github.com/mdo.png" alt="" width="32" height="32" class="rounded-circle me-2">
-                    <strong>mdo</strong>
-                  </a>
-                  <ul class="dropdown-menu text-small shadow" style="">
-                    <li><a class="dropdown-item" href="#">New project...</a></li>
-                    <li><a class="dropdown-item" href="#">Settings</a></li>
-                    <li><a class="dropdown-item" href="#">Profile</a></li>
-                    <li><hr class="dropdown-divider"></li>
-                    <li><a class="dropdown-item" href="#">Sign out</a></li>
-                  </ul>
+                <div class="p-2 row">
+                    <div class="col-6">Modo oscuro</div>
+                    <div class="col-6  justify-content-end">
+                        <div class="form-check form-switch">
+                            <input class="form-check-input form-switch-input" type="checkbox" role="switch" id="theme-toggle">
+                        </div>
+                    </div>
+                    
                 </div>
-              </div>
-        
-        
+                <div class="dropdown">
+                    <a href="#" class="d-flex align-items-center link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                        <img src="https://github.com/mdo.png" alt="" width="32" height="32" class="rounded-circle me-2">
+                        <strong>mdo</strong>
+                    </a>
+                    <ul class="dropdown-menu text-small shadow" style="">
+                        <li><a class="dropdown-item" href="#">New project...</a></li>
+                        <li><a class="dropdown-item" href="#">Settings</a></li>
+                        <li><a class="dropdown-item" href="#">Profile</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="#">Sign out</a></li>
+                    </ul>
+                </div>
+            </div>
     </aside>
     <main class="content">
         <!-- Contenido del cuerpo principal -->
