@@ -85,7 +85,7 @@
             <div class="col-2 d-flex justify-content-center">
                 <!-- <img class="nav-icon me-3" src="../public/img/favicon.svg" alt=""> -->
                 <img class="nav-icon me-3" src="/img/favicon.svg" alt="">
-                <a class="navbar-brand" href="#">MyDrive</a>
+                <a class="navbar-brand" href="/">MyDrive</a>
             </div>
             <div class="col-1 d-flex justify-content-center">
 
@@ -123,9 +123,10 @@
                     <i class="fa-solid fa-plus"></i> New
                 </button>
                 <ul class="dropdown-menu text-small shadow " style="">
-                    <li><a class="dropdown-item" href="#"><i class="fa-solid fa-file-arrow-up"></i> Subir</a></li>
+                    <!-- <li><a class="dropdown-item" href="#"><i class="fa-solid fa-file-arrow-up"></i> Subir</a></li> -->
+                    <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#uploadModal"><i class="fa-solid fa-file-arrow-up"></i> Subir</a></li>
                     <hr>
-                    <li><a class="dropdown-item" href="#"><i class="fa-solid fa-folder-plus"></i> Crear</a></li>
+                    <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#createModal"><i class="fa-solid fa-folder-plus"></i> Crear</a></li>
                     <li><a class="dropdown-item" href="#">Profile</a></li>
                     <li><hr class="dropdown-divider"></li>
                     <li><a class="dropdown-item" href="#">Sign out</a></li>
