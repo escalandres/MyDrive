@@ -4,7 +4,7 @@
 }
 
 html, body {
-    height: 100%;
+    
     margin: 0;
     padding: 0;
 }
@@ -272,6 +272,6 @@ background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAQA
 }
     
     
-li{
-    width: 15% !important;
+main > li{
+    width: 25% !important;
 }

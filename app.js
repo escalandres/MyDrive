@@ -12,7 +12,7 @@ const crypto = require('crypto');
 const mongoose = require('mongoose');
 const User = require('./model/user');
 
-require('dotenv').config(); 
+require('dotenv').config();
 const app = express();
 const port = 3001;
 const database = [
@@ -184,7 +184,7 @@ app.use('/mydrive', (req, res, next) => {
     if (req.session && req.session.user) {
         const userId = req.session.user.id;
         const userFtpPath = path.join(__dirname, `ftp/${userId}`);
-        
+
         // Verifica si la carpeta de FTP del usuario existe
         if (fs.existsSync(userFtpPath)) {
             // Servir contenido estático de la carpeta de FTP del usuario
@@ -203,7 +203,7 @@ app.use('/mydrive', (req, res, next) => {
     if (req.session && req.session.user) {
         const userId = req.session.user.id;
         const userFtpPath = path.join(__dirname, `ftp/${userId}`);
-        
+
         // Redirigir la solicitud a la carpeta del usuario
         req.url = `/${userId}${req.url}`;
         next();
@@ -213,9 +213,10 @@ app.use('/mydrive', (req, res, next) => {
     }
 }, serveIndex(path.join(__dirname, 'ftp'), {
     icons: true,
-    stylesheet: './public/css/ftp.css',
-    template: './views/template.html'
-})); 
+    // stylesheet: './public/css/ftp.css',
+    stylesheet: './public/css/mydrive.css',
+    template: './views/mydrive.html'
+}));
 
 // Middleware personalizado para agregar req.session.user.id al cuerpo de la solicitud
 app.use('/upload', (req, res, next) => {
@@ -237,6 +238,6 @@ app.use('/create-folder', (req, res, next) => {
 // Create Folder
 app.use(createRouter);
 
-app.use(handleNotFound); 
+app.use(handleNotFound);
 
 app.listen(port, () => console.log(`App running on http://localhost:${port}`))
