@@ -1,0 +1,60 @@
+document.addEventListener('DOMContentLoaded', function() {
+    const filesListHtml = document.getElementById('files').innerHTML;
+  
+    // Obtener el contenido de los elementos <li> como una lista de cadenas
+    const liContents = filesListHtml.match(/<li>(.*?)<\/li>/g);
+  
+    // Generar la estructura de datos en forma de objetos
+    const filesData = liContents.map(liContent => {
+      const name = liContent.match(/<span class="name">(.*?)<\/span>/)[1];
+      const size = liContent.match(/<span class="size">(.*?)<\/span>/)[1];
+      const date = liContent.match(/<span class="date">(.*?)<\/span>/)[1];
+      return { name, size, date };
+    });
+  
+    // Generar la tabla HTML dinámicamente
+    const table = document.createElement('table');
+    table.className = 'table'; // Agrega las clases de Bootstrap si lo deseas
+  
+    const tableHead = document.createElement('thead');
+    const headerRow = document.createElement('tr');
+    const headers = ['Nombre', 'Última Modificación', 'Tamaño'];
+  
+    headers.forEach(headerText => {
+      const th = document.createElement('th');
+      th.textContent = headerText;
+      headerRow.appendChild(th);
+    });
+  
+    tableHead.appendChild(headerRow);
+    table.appendChild(tableHead);
+  
+    const tableBody = document.createElement('tbody');
+  
+    filesData.forEach(file => {
+      const row = document.createElement('tr');
+      const nameCell = document.createElement('td');
+      const dateCell = document.createElement('td');
+      const sizeCell = document.createElement('td');
+  
+      nameCell.textContent = file.name;
+      dateCell.textContent = file.date;
+      sizeCell.textContent = file.size;
+  
+      row.appendChild(nameCell);
+      row.appendChild(dateCell);
+      row.appendChild(sizeCell);
+      tableBody.appendChild(row);
+    });
+  
+    table.appendChild(tableBody);
+  
+    // Reemplaza el contenido de table-container con la tabla generada
+    const tableContainer = document.getElementById('table-container');
+    tableContainer.innerHTML = ''; // Limpia el contenido previo
+    tableContainer.appendChild(table);
+  });
+  
+
+
+<a href="/mydrive/DIV_TeresitaAcosta.pdf" class="icon icon icon-pdf icon-application-pdf" title="DIV_TeresitaAcosta.pdf"></a>
