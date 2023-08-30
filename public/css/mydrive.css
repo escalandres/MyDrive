@@ -40,13 +40,17 @@ html, body {
     background-color: var(--sidebar-grey); /* Color de fondo de la barra lateral */
 }
 
+.sidebar-item{
+    color: var(--active-link) !important;
+}
+
 .sidebar-item:hover{
     background-color: var(--active-link);
     color: azure!important;
 }
 
 .h40{
-    height: 40px;
+    height: 40px; 
 }
 
 /*----------------------------------------------------------Seccion de ftp-------------------------------------------------------------*/
