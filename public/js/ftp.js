@@ -2,12 +2,12 @@ function showAlert(message, type) {
     const alertsContainer = document.getElementById('alerts-container');
 
     const alertDiv = document.createElement('div');
-    alertDiv.classList.add('alert', `alert-${type}`, 'alert-dismissible', 'fade', 'show');
-    alertDiv.role = 'alert';
+    alertDiv.classList.add('//alert', `//alert-${type}`, '//alert-dismissible', 'fade', 'show');
+    alertDiv.role = '//alert';
 
     alertDiv.innerHTML = `
         ${message}
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        <button type="button" class="btn-close" data-bs-dismiss="//alert" aria-label="Close"></button>
     `;
 
     alertsContainer.appendChild(alertDiv);
@@ -62,23 +62,23 @@ function generarPath(cadena) {
 function uploadFiles(files) {
     const formData = new FormData();
     const path = document.getElementById('path').innerText;
-    console.log(path)
-    alert(path)
+    //console.log(path)
+    //alert(path)
     const newPath = generarPath(path)
     
     formData.append('ruta',newPath)
     for (const file of files) {
         formData.append('file', file);
     }
-    console.log(formData)
-    alert(newPath)
+    //console.log(formData)
+    //alert(newPath)
     closeModal();
     const xhr = new XMLHttpRequest();
     xhr.open('POST', 'http://localhost:3001/upload', true);
 
     xhr.onload = function() {
         if (xhr.status === 200) {
-            console.log('Archivos subidos con éxito');
+            //console.log('Archivos subidos con éxito');
             showAlert('Archivos subidos con éxito','success')
             window.location.href = "/mydrive"
         } else {
@@ -147,7 +147,7 @@ document.getElementById('createFolderBtn').addEventListener('click',()=>{
 
     // Datos para la solicitud POST
     const folderName = document.getElementById('folderName').value; // Reemplaza con el nombre de la carpeta que deseas crear
-    alert(folderName)
+    //alert(folderName)
     // Objeto FormData para enviar el nombre de la carpeta
     // Configuración de la solicitud POST
     const requestOptions = {
@@ -162,7 +162,7 @@ document.getElementById('createFolderBtn').addEventListener('click',()=>{
     fetch('/create-folder', requestOptions)
     .then(response => response.json())
     .then(data => {
-        console.log(data); // Mensaje de respuesta del servidor
+        //console.log(data); // Mensaje de respuesta del servidor
         if(data.success){
             showAlert('Se ha creado la carpeta','success')
             window.location.href = "/mydrive"
