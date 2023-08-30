@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" href="public/img/favicon.svg" type="image/x-icon">
+    <link rel="shortcut icon" href="/img/favicon.svg" type="image/x-icon">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"></link>
-    <link rel="stylesheet" href="/css/mydrive.css">
+    <!-- <link rel="stylesheet" href="/css/mydrive.css"> -->
     <title>My Drive</title>
     <style>{style}</style>
     <script>
@@ -135,7 +135,7 @@
             <hr>
             <ul class="nav nav-pills flex-column mb-auto">
                 <li class="nav-item active">
-                    <a href="#" class="nav-link link-body-emphasis sidebar-item">
+                    <a href="/" class="nav-link link-body-emphasis sidebar-item">
                         <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#home"></use></svg>
                         <i class="fa-solid fa-house me-3"></i> Home
                     </a>
@@ -195,8 +195,31 @@
         <!-- Contenido principal -->
         <div class="directory">
             <div id="wrapper mt-4">     
-                <h1 id="path"><a href="/">~</a>{linked-path}</h1>
-            {files}
+                <h1 id="path mb-3">
+                    <!-- <a href="/">~</a> -->
+                    {linked-path}
+                </h1>
+                <div class="row w-100 mb-2">
+                    <div class="nombre">Nombre</div>
+                    <div class="tamaño">Tamaño</div>
+                    <div class="fecha">Fecha</div>
+                </div>
+                {files}
+            <div id="table-container">
+                <!-- Aquí se mostrará la tabla generada dinámicamente -->
+            </div>
+            <table>
+                <tbody>
+                    <tr class="clickable-row" data-href="https://www.ejemplo.com">
+                        <td>...</td>
+                        <td>...</td>
+                        <td>...</td>
+                    </tr>
+                    <!-- Agrega más filas aquí -->
+                </tbody>
+            </table>
+            <!-- <div id="files"><a href="/mydrive/DIV_TeresitaAcosta.pdf" class="icon icon-pdf icon-application-pdf" title="DIV_TeresitaAcosta.pdf">Hola</a></div> -->
+            
             </div>
             <!-- Modal -->
             <div class="modal fade" id="uploadModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

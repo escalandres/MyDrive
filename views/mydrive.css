@@ -49,8 +49,14 @@ html, body {
     height: 40px;
 }
 
+#path > a:hover {
+    background-color: #555;
+} 
 
-/*--------------------------Seccion de ftp---------------------------------*/
+
+
+
+/*----------------------------------------------------------Seccion de ftp-----------------------------------------------------------*/
 .template-body {
     padding: 80px 100px;
     font: 13px "Helvetica Neue", "Lucida Grande", "Arial";

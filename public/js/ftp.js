@@ -178,3 +178,81 @@ document.getElementById('createFolderBtn').addEventListener('click',()=>{
 
 })
 
+// document.addEventListener('DOMContentLoaded', function() {
+//     const filesList = document.getElementById('files');
+  
+//     // Crear una tabla
+//     const table = document.createElement('table');
+//     table.className = 'table'; // Agregar las clases de Bootstrap si lo deseas
+  
+//     const tableHead = document.createElement('thead');
+//     const headerRow = document.createElement('tr');
+//     const headers = ['Nombre', 'Tamaño', 'Última Modificación'];
+  
+//     headers.forEach(headerText => {
+//       const th = document.createElement('th');
+//       th.textContent = headerText;
+//       headerRow.appendChild(th);
+//     });
+  
+//     tableHead.appendChild(headerRow);
+//     table.appendChild(tableHead);
+  
+//     const tableBody = document.createElement('tbody');
+  
+//     // Obtener los elementos <a> de la lista
+//     const aElements = filesList.querySelectorAll('a');
+  
+//     // Crear filas de la tabla utilizando los elementos <a>
+//     aElements.forEach(a => {
+//       const row = document.createElement('tr');
+  
+//       // Obtener el contenido del elemento <span class="name">
+//       const nameContent = a.querySelector('.name').textContent;
+  
+//       // Obtener el contenido del elemento <span class="size">
+//       const sizeContent = a.querySelector('.size').textContent;
+  
+//       // Obtener el contenido del elemento <span class="date">
+//       const dateContent = a.querySelector('.date').textContent;
+  
+//       // Crear una celda para el nombre
+//       const nameCell = document.createElement('td');
+//       nameCell.textContent = nameContent;
+  
+//       // Crear una celda para el tamaño
+//       const sizeCell = document.createElement('td');
+//       sizeCell.textContent = sizeContent;
+  
+//       // Crear una celda para la fecha de modificación
+//       const dateCell = document.createElement('td');
+//       dateCell.textContent = dateContent;
+  
+//       // Agregar las celdas a la fila
+//       row.appendChild(nameCell);
+//       row.appendChild(sizeCell);
+//       row.appendChild(dateCell);
+  
+//       // Crear un enlace
+//       const link = document.createElement('a');
+//       link.href = a.href;
+//       link.appendChild(row);
+  
+//       // Crear una fila de tabla y agregar el enlace
+//       const tableRow = document.createElement('tr');
+//       const tableCell = document.createElement('td');
+//       tableCell.appendChild(link);
+//       tableRow.appendChild(tableCell);
+  
+//       // Agregar la fila a la tabla
+//       tableBody.appendChild(tableRow);
+//     });
+  
+//     table.appendChild(tableBody);
+  
+//     // Reemplazar el contenido de table-container con la tabla generada
+//     const tableContainer = document.getElementById('table-container');
+//     tableContainer.innerHTML = ''; // Limpia el contenido previo
+//     tableContainer.appendChild(table);
+//   });
+  
