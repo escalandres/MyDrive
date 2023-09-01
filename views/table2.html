@@ -9,48 +9,50 @@
   <link rel="stylesheet" href="https://cdn.datatables.net/1.11.2/css/dataTables.bootstrap5.min.css">
 </head>
 <body>
-  <div class="container mt-4">
-    <input type="text" id="custom-search" placeholder="Buscar">
+    <div class="container mt-4">
+        <input type="text" id="custom-search" placeholder="Buscar">
 
-    <div class="table-responsive">
-      <table id="fileTable" class="table table-hover borderless">
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Size</th>
-            <th>Date Modified</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>table.css</td>
-            <td>1 MB</td>
-            <td>2023-08-31</td>
-          </tr>
-          <tr>
-            <td>txt</td>
-            <td></td>
-            <td>2023-08-30</td>
-          </tr>
-          <tr>
-            <td>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</td>
-            <td>2 MB</td>
-            <td>2023-08-30</td>
-          </tr>
-          <tr>
-            <td>File 4</td>
-            <td>2 MB</td>
-            <td>2023-08-30</td>
-          </tr>
-          <tr>
-            <td>File 5</td>
-            <td>2 MB</td>
-            <td>2023-08-30</td>
-          </tr>
-        </tbody>
-      </table>
+        <div class="table-responsive">
+            <table id="fileTable" class="table table-hover borderless">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Size</th>
+                        <th>Date Modified</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <i id="" class="i-icon css-icon"></i>
+                            table.css</td>
+                        <td>1 MB</td>
+                        <td>2023-08-31</td>
+                    </tr>
+                    <tr>
+                        <td><i id="" class="i-icon folder-icon"></i>txt</td>
+                        <td></td>
+                        <td>2023-08-30</td>
+                    </tr>
+                    <tr>
+                        <td>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</td>
+                        <td>2 MB</td>
+                        <td>2023-08-30</td>
+                    </tr>
+                    <tr>
+                        <td><i id="iconoPdf" class="i-icon pdf-icon"></i>File 4</td>
+                        <td>2 MB</td>
+                        <td>2023-08-30</td>
+                    </tr>
+                    <tr>
+                        <td>File 5</td>
+                        <td>2 MB</td>
+                        <td>2023-08-30</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
-  </div>
 
   <!-- Librerías JavaScript -->
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -129,6 +131,22 @@
         overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
+}
+.i-icon{
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    margin-right: 0.5rem;
+    transform: translateY(0.2rem);
+}
+.pdf-icon {
+    background-image: url('pdfb.svg');
+}
+.css-icon {
+    background-image: url('css.svg');
+}
+.folder-icon {
+    background-image: url('folder.svg');
 }
   </style>
 
