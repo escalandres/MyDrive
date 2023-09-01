@@ -3,31 +3,117 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Agrega estas líneas en el head de tu documento HTML -->
+    <!-- <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css"> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.css" />
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script> 
+
+    <link rel="stylesheet" href="table.css">
     <title>Document</title>
-    <style>
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
+    <script>
+        var lastClickTime = 0;
         
-        th, td {
-            border: 1px solid black;
-            padding: 8px;
+        function handleRowDoubleClick(row) {
+            console.log(this)
+            // var currentTime = new Date().getTime();
+            // if (currentTime - lastClickTime < 300) {
+            //     // alert("Doble clic detectado en la fila: " + row.cells[0].innerHTML); 
+            //     var selected = row.cells[0].innerHTML;
+            //     var currentURL = window.location.href;
+            //     currentURL = currentURL.replace("table.html", "");
+            //     var newUrl = currentURL + selected;
+            //     // alert(newUrl)
+            //     window.location.href = newUrl
+            // }
+            // lastClickTime = currentTime;
         }
+
+        document.addEventListener("DOMContentLoaded", function() {
+            var tbody = document.querySelector("tbody"); // Selecciona el tbody en lugar de todas las filas
+            var rows = tbody.querySelectorAll("tr"); // Selecciona solo las filas dentro del tbody
+            
+            rows.forEach(function(row) {
+                row.addEventListener("click", function() {
+                    // Remover la clase 'selected-row' de todas las filas
+                    rows.forEach(function(row) {
+                        row.classList.remove("selected-row");
+                    });
+                    
+                    // Agregar la clase 'selected-row' a la fila clicada
+                    this.classList.add("selected-row");
+                });
+            });
+        });
+
+    //     $(document).ready(function() {
+    //     var table = $('.responsive-table').DataTable({
+    //         "ordering": true,
+    //         "order": [[0, "asc"]],
+    //         "searching": true,
+    //         "bLengthChange": false,
+    //         "language": {
+    //             "search": "Buscar:",
+    //             "searchPlaceholder": "Buscar en la tabla"
+    //         },
+    //         "pagingType": "bootstrap",
+    //         "dom": '<"table-responsive"t><"row"<"col-sm-12 col-md-5"i><"col-sm-12 col-md-7"p>>'
+    //     });
+
+    // // Manejo del doble clic en DataTables
+    // $('.responsive-table tbody').on('dblclick', 'tr', function () {
+    //     var data = table.row(this).data();
+    //     var selected = data[0]; // Obtener el contenido de la primera columna
+    //     var currentURL = window.location.href;
+    //     currentURL = currentURL.replace("table.html", "");
+    //     var newUrl = currentURL + selected;
+    //     window.location.href = newUrl;
+    // });
+    $(document).ready(function() {
+        var table = $('#fileTable').DataTable({
+            "ordering": true,
+            "order": [[0, "asc"]],
+            "searching": true,
+            "bLengthChange": false,
+            "language": {
+                "search": "Buscar:",
+                "searchPlaceholder": "Buscar en la tabla"
+            },
+            "pagingType": "full_numbers",
+            "dom": '<"table-responsive"t><"row"<"col-sm-12 col-md-5"i><"col-sm-12 col-md-7"p>>',
+            // "drawCallback": function( settings ) {
+            //     $('.dataTables_paginate').addClass("pagination");
+            // }
+        });
+
+        // Manejo del doble clic en DataTables
+        $('#fileTable tbody').on('dblclick', 'tr', function () {
+            var data = table.row(this).data();
+            var selected = data[0]; // Obtener el contenido de la primera columna
+            var currentURL = window.location.href;
+            currentURL = currentURL.replace("table.html", "");
+            var newUrl = currentURL + selected;
+            window.location.href = newUrl;
+        });
         
-        a.row-link {
-            display: table-row;
-            text-decoration: none;
-            color: black;
-        }
-        
-        a.row-link:hover {
-            background-color: #f0f0f0;
-        }
-    </style>
+    //     $(".dataTables_paginate").addClass("pagination");
+    // $(".paginate_button").addClass("page-item");
+    // $(".paginate_button a").addClass("page-link");
+    });
+
+
+    </script>
 </head>
 <body>
-    <table>
+    <!-- <table>
         <thead>
             <tr>
                 <th>Columna 1</th>
@@ -36,28 +122,48 @@
             </tr>
         </thead>
         <tbody>
-            <a href="pagina1.html" class="row-link">
-                <tr>
-                    <td>Archivo 1</td>
-                    <td>2023-08-30</td>
-                    <td>10 MB</td>
-                </tr>
-            </a>
-            <a href="pagina2.html" class="row-link">
-                <tr>
-                    <td>Archivo 2</td>
-                    <td>2023-08-29</td>
-                    <td>5 MB</td>
-                </tr>
-            </a>
-            <a href="pagina3.html" class="row-link">
-                <tr>
-                    <td>Archivo 3</td>
-                    <td>2023-08-28</td>
-                    <td>2 MB</td>
-                </tr>
-            </a>
+            <tr id="tr1" onclick="handleRowDoubleClick(this)">
+                <td>txt</td>
+                <td>2023-08-30</td>
+                <td>-</td>
+            </tr>
+            <tr id="tr2" onclick="handleRowDoubleClick(this)">
+                <td>descarga.jpg</td>
+                <td>2023-08-29</td>
+                <td>5 MB</td>
+            </tr>
+            <tr id="tr3" onclick="handleRowDoubleClick(this)">
+                <td>Archivo 3</td>
+                <td>2023-08-28</td>
+                <td>2 MB</td>
+            </tr>
         </tbody>
-    </table>
+    </table> -->
+    <div class="table-responsive">
+        <table id="fileTable" class="table table-borderless table-hover responsive-table">
+            <thead>
+                <tr>
+                    <th style="width: 60%;">Nomb</th>
+                    <th style="width: 25%;">Columna 2</th>
+                    <th style="width: 15%;">Columna 3</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- <tr onclick="handleRowDoubleClick(this)"> -->
+                <tr >
+                    <td>txt</td>
+                    <td>Contenido de la columna 2</td>
+                    <td>Contenido de la columna 3</td>
+                </tr>
+                <!-- Agrega más filas si es necesario -->
+                <!-- <tr onclick="handleRowDoubleClick(this)"> -->
+                <tr >
+                    <td>descarga.jpg</td>
+                    <td>Contenido de la columna 2</td>
+                    <td>Contenido de la columna 3</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </body>
 </html>
