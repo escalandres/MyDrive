@@ -23,7 +23,7 @@
         var lastClickTime = 0;
         
         function handleRowDoubleClick(row) {
-            console.log(this)
+            console.log(this) 
             // var currentTime = new Date().getTime();
             // if (currentTime - lastClickTime < 300) {
             //     // alert("Doble clic detectado en la fila: " + row.cells[0].innerHTML); 
@@ -78,41 +78,75 @@
     //     window.location.href = newUrl;
     // });
     $(document).ready(function() {
-        var table = $('#fileTable').DataTable({
-            "ordering": true,
-            "order": [[0, "asc"]],
-            "searching": true,
-            "bLengthChange": false,
-            "language": {
-                "search": "Buscar:",
-                "searchPlaceholder": "Buscar en la tabla"
-            },
-            "pagingType": "full_numbers",
-            "dom": '<"table-responsive"t><"row"<"col-sm-12 col-md-5"i><"col-sm-12 col-md-7"p>>',
-            // "drawCallback": function( settings ) {
-            //     $('.dataTables_paginate').addClass("pagination");
-            // }
-        });
-
-        // Manejo del doble clic en DataTables
-        $('#fileTable tbody').on('dblclick', 'tr', function () {
-            var data = table.row(this).data();
-            var selected = data[0]; // Obtener el contenido de la primera columna
-            var currentURL = window.location.href;
-            currentURL = currentURL.replace("table.html", "");
-            var newUrl = currentURL + selected;
-            window.location.href = newUrl;
-        });
-        
-    //     $(".dataTables_paginate").addClass("pagination");
-    // $(".paginate_button").addClass("page-item");
-    // $(".paginate_button a").addClass("page-link");
+    var table = $('#fileTable').DataTable({
+      "ordering": true,
+      "order": [[0, "asc"]],
+      "searching": true,
+      "lengthChange": false,
+      "language": {
+        "search": "Buscar:",
+        "searchPlaceholder": "Buscar en la tabla"
+      },
+      "dom": '<"table-responsive"t><"row"<"col-sm-12 col-md-5"i><"col-sm-12 col-md-7"p>>',
     });
+
+    // Manejo del doble clic en DataTables
+    $('#fileTable tbody').on('dblclick', 'tr', function () {
+      var data = table.row(this).data();
+      var selected = data[0]; // Obtener el contenido de la primera columna
+      var currentURL = window.location.href;
+      currentURL = currentURL.replace("table.html", "");
+      var newUrl = currentURL + selected;
+      window.location.href = newUrl;
+    });
+
+    // table.on('page.dt', function () {
+    // var info = table.page.info();
+    // var totalPages = info.pages;
+    // var currentPage = info.page + 1;
+    // var pagination = $('#pagination');
+
+    // pagination.empty();
+
+    // if (totalPages > 1) {
+    //     var first = $('<li>').addClass('page-item').attr('id', 'fileTable_first');
+    //     var firstLink = $('<a>').addClass('page-link').attr('href', '#').attr('aria-label', 'First').attr('tabindex', '-1').attr('aria-disabled', true).text('First');
+    //     first.append(firstLink);
+    //     pagination.append(first);
+
+    //     var prev = $('<li>').addClass('page-item').attr('id', 'fileTable_previous');
+    //     var prevLink = $('<a>').addClass('page-link').attr('href', '#').attr('aria-label', 'Previous').attr('tabindex', '-1').attr('aria-disabled', true).text('Previous');
+    //     prev.append(prevLink);
+    //     pagination.append(prev);
+
+    //     for (var i = 1; i <= totalPages; i++) {
+    //     var page = $('<li>').addClass('page-item').addClass(i === currentPage ? 'active' : '');
+    //     var pageLink = $('<a>').addClass('page-link').attr('href', '#').attr('tabindex', i === currentPage ? '0' : '-1').text(i);
+    //     page.append(pageLink);
+    //     pagination.append(page);
+    //     }
+
+    //     var next = $('<li>').addClass('page-item').attr('id', 'fileTable_next');
+    //     var nextLink = $('<a>').addClass('page-link').attr('href', '#').attr('aria-label', 'Next').attr('tabindex', '-1').attr('aria-disabled', true).text('Next');
+    //     next.append(nextLink);
+    //     pagination.append(next);
+
+    //     var last = $('<li>').addClass('page-item').attr('id', 'fileTable_last');
+    //     var lastLink = $('<a>').addClass('page-link').attr('href', '#').attr('aria-label', 'Last').attr('tabindex', '-1').attr('aria-disabled', true).text('Last');
+    //     last.append(lastLink);
+    //     pagination.append(last);
+    // }
+    // });
+
+  });
 
 
     </script>
 </head>
 <body>
+    <div class="main-container">
+
+    
     <!-- <table>
         <thead>
             <tr>
@@ -140,30 +174,28 @@
         </tbody>
     </table> -->
     <div class="table-responsive">
-        <table id="fileTable" class="table table-borderless table-hover responsive-table">
-            <thead>
-                <tr>
-                    <th style="width: 60%;">Nomb</th>
-                    <th style="width: 25%;">Columna 2</th>
-                    <th style="width: 15%;">Columna 3</th>
-                </tr>
-            </thead>
-            <tbody>
-                <!-- <tr onclick="handleRowDoubleClick(this)"> -->
-                <tr >
-                    <td>txt</td>
-                    <td>Contenido de la columna 2</td>
-                    <td>Contenido de la columna 3</td>
-                </tr>
-                <!-- Agrega más filas si es necesario -->
-                <!-- <tr onclick="handleRowDoubleClick(this)"> -->
-                <tr >
-                    <td>descarga.jpg</td>
-                    <td>Contenido de la columna 2</td>
-                    <td>Contenido de la columna 3</td>
-                </tr>
-            </tbody>
+        <table id="fileTable" class="table  table-hover borderless">
+          <thead class="border-bottom">
+            <tr>
+              <th style="width: 60%;">Nombre</th>
+              <th style="width: 25%;">Columna 2</th>
+              <th style="width: 15%;">Columna 3</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="border-top border-bottom">
+              <td>txt</td>
+              <td>Contenido de la columna 2</td>
+              <td>Contenido de la columna 3</td>
+            </tr>
+            <tr class="border-top border-bottom">
+              <td>descarga.jpg</td>
+              <td>Contenido de la columna 2</td>
+              <td>Contenido de la columna 3</td>
+            </tr>
+          </tbody>
         </table>
+      </div>
     </div>
 </body>
 </html>
