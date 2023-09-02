@@ -114,3 +114,6 @@ tbody > tr:hover{
   .pagination li:last-child a {
     margin-left: 0.5rem;
   }
+  .a{
+    color: #f3c80a;
+  }
