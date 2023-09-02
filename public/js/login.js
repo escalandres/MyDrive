@@ -33,6 +33,6 @@ form.addEventListener('submit', async (event) => {
         // Mostrar un mensaje de error si el inicio de sesión falla
         alert(data.message);
     }else{
-        window.location.href = '/mydrive'
+        window.location.href = '/mydrive2'
     }
 });

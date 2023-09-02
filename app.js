@@ -11,7 +11,7 @@ const bcrypt = require('bcrypt');
 const crypto = require('crypto');
 const mongoose = require('mongoose');
 const User = require('./model/user');
-
+const dirRender = require('./src/modules/dir-render')
 require('dotenv').config();
 const app = express();
 const port = 3001;
@@ -216,6 +216,44 @@ app.use('/mydrive', (req, res, next) => {
     // stylesheet: './public/css/ftp.css',
     stylesheet: './public/css/mydrive.css',
     template: './views/mydrive.html'
+}));
+
+app.use('/mydrive2', (req, res, next) => {
+    if (req.session && req.session.user) {
+        const userId = req.session.user.id;
+        const userFtpPath = path.join(__dirname, `ftp/${userId}`);
+
+        // Verifica si la carpeta de FTP del usuario existe
+        if (fs.existsSync(userFtpPath)) {
+            // Servir contenido estático de la carpeta de FTP del usuario
+            express.static(userFtpPath)(req, res, next);
+        } else {
+            // Carpeta no encontrada
+            res.status(404).send('Carpeta no encontrada');
+        }
+    } else {
+        // Usuario no autenticado
+        res.status(401).redirect('/login');
+    }
+});
+
+app.use('/mydrive2', (req, res, next) => {
+    if (req.session && req.session.user) {
+        const userId = req.session.user.id;
+        const userFtpPath = path.join(__dirname, `ftp/${userId}`);
+
+        // Redirigir la solicitud a la carpeta del usuario
+        req.url = `/${userId}${req.url}`;
+        next();
+    } else {
+        // Usuario no autenticado
+        res.status(401).redirect('/login');
+    }
+}, dirRender(path.join(__dirname, 'ftp'), {
+    icons: true,
+    // stylesheet: './public/css/ftp.css',
+    // stylesheet: './public/css/mydrive.css',
+    // template: './views/mydrive.html'
 }));
 
 // Middleware personalizado para agregar req.session.user.id al cuerpo de la solicitud
