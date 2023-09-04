@@ -253,7 +253,7 @@ app.use('/mydrive2', (req, res, next) => {
     icons: true,
     // stylesheet: './public/css/ftp.css',
     // stylesheet: './public/css/mydrive.css',
-    // template: './views/mydrive.html'
+    // template: './views/mydrive.html' 
 }));
 
 // Middleware personalizado para agregar req.session.user.id al cuerpo de la solicitud
