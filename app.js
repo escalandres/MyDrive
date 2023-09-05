@@ -11,7 +11,7 @@ const bcrypt = require('bcrypt');
 const crypto = require('crypto');
 const mongoose = require('mongoose');
 const User = require('./model/user');
-const dirRender = require('./src/modules/dir-render')
+const dirRender = require('./src/modules/DirRender')
 require('dotenv').config();
 const app = express();
 const port = 3001;
