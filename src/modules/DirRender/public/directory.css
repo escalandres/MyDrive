@@ -1,0 +1,206 @@
+/* MyDrive */
+:root{
+    --active-link: #0d6efd;
+    --sidebar-grey: rgb(248,249,250);
+}
+
+.nav-icon{
+    width: 30px;
+    height: 30px;
+}
+
+.s-icon {
+    position: absolute;
+    left: 11px; 
+    top: 11px; 
+    color: grey;
+}
+
+.input-container {
+    position: relative;
+}
+
+.icon-input {
+    padding-left: 35px !important; /* Espacio para el icono */
+}
+
+.form-switch .form-switch-input {
+    font-size: 1em;
+    width: 3rem !important;
+    
+}
+
+.sidebar {
+    position: relative;
+    left: 0;
+    top: 0;
+    height: 100%;
+
+    background-color: var(--sidebar-grey); /* Color de fondo de la barra lateral */
+}
+
+.sidebar-item{
+    color: var(--active-link) !important;
+}
+
+.sidebar-item:hover{
+    background-color: var(--active-link);
+    color: azure!important;
+}
+
+.h40{
+    height: 40px; 
+}
+
+.gb{
+    background: var(--sidebar-grey);
+    /* padding: 0.3rem 3rem; */
+    /* float: left; */
+}
+
+main{
+    flex: 1;
+    border-radius: 20px !important;
+    background: #fff;
+    /* text-overflow: clip; */
+}
+
+#fileTable_wrapper .dataTables_scrollHead {
+    overflow: hidden !important;
+}
+
+#fileTable_wrapper .dataTables_scrollHead table {
+    margin-bottom: 0 !important;
+}
+
+#fileTable_wrapper .dataTables_scrollBody {
+    max-height: 300px !important; /* Puedes ajustar esta altura según tus necesidades */
+    overflow-y: auto !important;
+}
+
+#fileTable_wrapper .dataTables_scroll {
+    overflow: visible !important; /* Asegura que el scroll vertical sea visible en el tbody */
+}
+/* ---------------------------------- DataTable ---------------------------------- */
+.selected-row {
+    background-color: rgb(194,231,255) !important;
+}
+
+.dataTables_filter,
+.dataTables_info  {
+    display: none;
+}
+
+#fileTable tbody td:nth-child(1) {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+/* Seccion de tabla */
+
+.selected-row {
+    background-color: rgb(194,231,255) !important;
+}
+
+.dataTables_filter,
+.dataTables_info  {
+    display: none;
+}
+
+#fileTable tbody td:nth-child(1) {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+/* Seccion de iconos */
+
+.i-icon{
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    margin-right: 0.5rem;
+    transform: translateY(0.2rem);
+}
+.android-icon {
+    background-image: url('/icons/android.svg');
+}
+.apk-icon {
+    background-image: url('/icons/apk.svg');
+}
+.audio-icon {
+    background-image: url('/icons/audio.svg');
+}
+.code-icon {
+    background-image: url('/icons/code.svg');
+}
+.compressed-icon {
+    background-image: url('/icons/compressed.svg');
+}
+.css-icon {
+    background-image: url('/icons/css.svg');
+}
+.csv-icon {
+    background-image: url('/icons/csv.svg');
+}
+.excel-icon {
+    background-image: url('/icons/excel.svg');
+}
+.exe-icon {
+    background-image: url('/icons/exe.svg');
+}
+.folder-icon {
+    background-image: url('/icons/folder.svg');
+}
+.gif-icon {
+    background-image: url('/icons/gif2.svg');
+}
+.html-icon {
+    background-image: url('/icons/html.svg');
+}
+.img-icon {
+    background-image: url('/icons/img.svg');
+}
+.js-icon {
+    background-image: url('/icons/js.svg');
+}
+.music-icon {
+    background-image: url('/icons/music.svg');
+}
+.pdf-icon {
+    background-image: url('/icons/pdf-light.svg');
+}
+.ppt-icon {
+    background-image: url('/icons/ppt.svg');
+}
+.python-icon {
+    background-image: url('/icons/python.svg');
+}
+.ppt-icon {
+    background-image: url('/icons/ppt.svg');
+}
+.python-icon {
+    background-image: url('/icons/python.svg');
+}
+.svg-icon {
+    background-image: url('/icons/svg.svg');
+}
+.txt-icon {
+    background-image: url('/icons/txt.svg');
+}
+.unknown-icon {
+    background-image: url('/icons/unknown.svg');
+}
+.video-icon {
+    background-image: url('/icons/video.svg');
+}
+.word-icon {
+    background-image: url('/icons/word.svg');
+}
+.xml-icon {
+    background-image: url('/icons/xml.svg');
+}
+.zip-icon {
+    background-image: url('/icons/zip.svg');
+}

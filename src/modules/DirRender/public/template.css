@@ -1,0 +1,135 @@
+/* Template css*/
+
+.selected-row {
+    background-color: rgb(194,231,255) !important;
+}
+
+.dataTables_filter,
+.dataTables_info  {
+    display: none;
+}
+
+#fileTable tbody td:nth-child(1) {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+/* Seccion de tabla */
+
+.selected-row {
+    background-color: rgb(194,231,255) !important;
+}
+
+.dataTables_filter,
+.dataTables_info  {
+    display: none;
+}
+
+#fileTable tbody td:nth-child(1) {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+/* Seccion de iconos */
+
+.i-icon{
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    margin-right: 0.5rem;
+    transform: translateY(0.2rem);
+}
+.android-icon {
+    font-weight: 700;
+}
+.apk-icon {
+    font-weight: 700;
+}
+.audio-icon {
+    font-weight: 700;
+}
+.code-icon {
+    font-weight: 700;
+}
+.compressed-icon {
+    font-weight: 700;
+}
+.css-icon {
+    font-weight: 700;
+}
+.csv-icon {
+    font-weight: 700;
+}
+.excel-icon {
+    font-weight: 700;
+}
+.exe-icon {
+    font-weight: 700;
+}
+.folder-icon {
+    background-image: url('/icons/folder.svg');
+}
+.gif-icon {
+    font-weight: 700;
+}
+.html-icon {
+    font-weight: 700;
+}
+.img-icon {
+    font-weight: 700;
+}
+.js-icon {
+    font-weight: 700;
+}
+.music-icon {
+    font-weight: 700;
+}
+.pdf-icon {
+    font-weight: 700;
+}
+.ppt-icon {
+    font-weight: 700;
+}
+.python-icon {
+    font-weight: 700;
+}
+.ppt-icon {
+    font-weight: 700;
+}
+.python-icon {
+    font-weight: 700;
+}
+.svg-icon {
+    font-weight: 700;
+}
+.txt-icon {
+    font-weight: 700;
+}
+.unknown-icon {
+    font-weight: 700;
+}
+.video-icon {
+    font-weight: 700;
+}
+.word-icon {
+    font-weight: 700;
+}
+.xml-icon {
+    font-weight: 700;
+}
+.zip-icon {
+  background-image: url('/icons/compressed.svg');
+
+    font-weight: 700;
+}
+
+
+
+
+
+
+
+
+

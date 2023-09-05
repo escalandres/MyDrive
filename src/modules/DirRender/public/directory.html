@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="/img/favicon.svg" type="image/x-icon">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"></link>
+    <!-- Estilos de Bootstrap 5 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css">
+    <!-- Estilos de DataTables -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.2/css/dataTables.bootstrap5.min.css">
+    <!-- <link rel="stylesheet" href="/css/mydrive.css"> -->
+
+    <title>My Drive</title>
+    <style>{style}</style>
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <!-- Contenido del navbar -->
+    <div class="container-fluid">
+        <div class="row w-100">
+            <div class="col-2 d-flex justify-content-center">
+                <!-- <img class="nav-icon me-3" src="../public/img/favicon.svg" alt=""> -->
+                <img class="nav-icon me-3" src="/img/favicon.svg" alt="">
+                <a class="navbar-brand" href="/">MyDrive</a>
+            </div>
+            <div class="col-1 d-flex justify-content-center">
+
+            </div>
+            <div class="col-7 d-flex justify-content-center">
+                <div class="input-container w-100">
+                    <input type="text" class="form-control icon-input" name="" id="search" placeholder="Buscar en My Drive" required>
+                    <i class="fa-solid fa-magnifying-glass s-icon"></i>
+                </div>
+                <!-- <input id="search" class="form-control w-100" type="search" placeholder="Search" aria-label="Search" autocomplete="off"/> -->
+            </div>
+            <div class="col-1 d-flex justify-content-center align-items-center">
+                <!-- <div class="form-check form-switch">
+                    <input class="form-check-input form-switch-input" type="checkbox" role="switch" id="theme-toggle">
+                </div> -->
+            </div>
+            <div class="col-1 d-flex justify-content-center">
+                
+                <button id="logoutBtn" class="btn btn-danger"><i class="fa-solid fa-right-from-bracket"></i> Salir</button>
+
+            </div>
+        </div>
+        <!-- <div class="justify-content-end" id="">
+            
+        </div> -->
+    </div>
+  </nav>
+  <div class="container-fluid pr">
+    <div class="d-flex row gb">
+      <nav class="col-md-2 sidebar">
+        <!-- Contenido del sidebar -->
+        <div class="position-sticky top-0 p-3">
+            <div class="btn-group dropend position-static">
+                <button href="#" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="fa-solid fa-plus"></i> New
+                </button>
+                <ul class="dropdown-menu text-small shadow " style="">
+                    <!-- <li><a class="dropdown-item" href="#"><i class="fa-solid fa-file-arrow-up"></i> Subir</a></li> -->
+                    <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#uploadModal"><i class="fa-solid fa-file-arrow-up"></i> Subir</a></li>
+                    <hr>
+                    <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#createModal"><i class="fa-solid fa-folder-plus"></i> Crear</a></li>
+                    <li><a class="dropdown-item" href="#">Profile</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item" href="#">Sign out</a></li>
+                </ul>
+            </div>
+            <hr>
+            <ul class="nav nav-pills flex-column mb-auto">
+                <li class="nav-item active">
+                    <a href="/" class="nav-link link-body-emphasis sidebar-item">
+                        <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#home"></use></svg>
+                        <i class="fa-solid fa-house me-3"></i> Home
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link link-body-emphasis sidebar-item">
+                        <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#speedometer2"></use></svg>
+                        Dashboard
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link link-body-emphasis sidebar-item">
+                        <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#table"></use></svg>
+                        Orders
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link link-body-emphasis sidebar-item">
+                        <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#grid"></use></svg>
+                        Products
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link link-body-emphasis sidebar-item">
+                        <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#people-circle"></use></svg>
+                        Customers
+                    </a>
+                </li>
+
+            </ul>
+            <hr>
+            <div class="row h40 d-flex align-content-center">
+                <div class="col-8">Modo oscuro</div>
+                <div class="col-4 container">
+                    <div class="form-check form-switch d-flex justify-content-end">
+                        <input class="form-check-input form-switch-input" type="checkbox" role="switch" id="theme-toggle">
+                    </div>
+                </div>
+                
+            </div>
+            <div class="dropdown">
+                <a href="#" class="d-flex align-items-center link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                    <img src="https://github.com/mdo.png" alt="" width="32" height="32" class="rounded-circle me-2">
+                    <strong>mdo</strong>
+                </a>
+                <ul class="dropdown-menu text-small shadow" style="">
+                    <li><a class="dropdown-item" href="#">New project...</a></li>
+                    <li><a class="dropdown-item" href="#">Settings</a></li>
+                    <li><a class="dropdown-item" href="#">Profile</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item" href="#">Sign out</a></li>
+                </ul>
+            </div>
+          </div>
+      </nav>
+      <main class="col-md-10 ml-sm-auto col-lg-10 px-md-4 p-3 d-flex flex-column align-items-start">
+        <!-- Contenido principal -->
+        <div class="directory">
+            <div id="wrapper mt-4">     
+              <h1 id="path" class="mb-3">
+                <a href="/">~</a>
+                {linked-path}
+              </h1>
+              {files}
+            </div>
+            <!-- Modal -->
+            <div class="modal fade" id="uploadModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Sube tus archivos</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                        <div id="drop-zone">
+                            Arrastra archivos aquí o haz clic para seleccionar archivos
+                        </div>
+                        </div>
+                        <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+    
+            <div class="modal fade" id="createModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Nueva Carpeta</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <input class="form-control" type="text" name="folderName" id="folderName" placeholder="Escribe el nombre de tu carpeta"/>
+                        </div>
+                        <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button id="createFolderBtn" type="button" class="btn btn-primary">Crear Carpeta</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    
+            <div class="container mt-4">
+                <div class="floating-alerts" id="alerts-container">
+                <!-- Aquí se mostrarán las alertas -->
+                </div>
+            </div>
+        </div>
+      </main>
+    </div>
+  </div>
+  <!-- Librerías JavaScript -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.datatables.net/1.11.2/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdn.datatables.net/1.11.2/js/dataTables.bootstrap5.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script> 
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/js/all.min.js"></script>
+  <script src="/js/ftp.js"></script>
+  <script src="/js/datatable.js"></script>
+</body>
+</html>
