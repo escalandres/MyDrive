@@ -177,19 +177,6 @@ var iconClassSvg = {
     ".zip-icon": path.join(__dirname,'icons','zip.svg'),
 }
 
-function printCss(filePath){
-    // Usar fs.readFile para leer el contenido del archivo
-    fs.readFile(filePath, 'utf8', (err, data) => {
-    if (err) {
-        console.error('Error al leer el archivo:', err);
-        return;
-    }
-
-    // Imprimir el contenido del archivo por consola
-    console.log('Contenido del archivo:');
-    console.log(data);
-    });
-}
 function generateIconClasses(){
     // Lee el archivo CSS
     const archivo = path.join(__dirname,'public','template.css')
@@ -200,7 +187,7 @@ function generateIconClasses(){
         for (var clase in iconClassSvg) {
             if (iconClassSvg.hasOwnProperty(clase)) {
                 var svg = iconClassSvg[clase];
-                console.log(clase,svg)
+                // console.log(clase,svg)
                 // Busca la clase que deseas modificar
                 let css = data.replace(`${clase} {`, `${clase} {\n  background-image: url('${svg}');\n`);
 
@@ -211,7 +198,7 @@ function generateIconClasses(){
             }
         }
     });
-    printCss(archivo)
+    // printCss(archivo)
 }
 
 

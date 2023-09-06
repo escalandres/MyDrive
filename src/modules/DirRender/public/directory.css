@@ -2,12 +2,14 @@
 :root{
     --active-link: #0d6efd;
     --sidebar-grey: rgb(248,249,250);
+    --bg-grey: rgb(247,249,252);
 }
 
 html, body{
     min-height: 100%;
     max-height: 100%;
     overflow: hidden; /* Esto evita que el contenido se desborde */
+    background: var(--bg-grey);
 }
 
 .nav-icon{
@@ -22,8 +24,44 @@ html, body{
     color: grey;
 }
 
+#path > a {
+    color: #474646;
+    font-weight: 400;
+    font-size: 1.5rem;
+    text-decoration: none;
+    margin: 5px;
+    padding: 10px;
+}
+
+#path > a:hover {
+    border-radius: 35%;
+    background-color: #f1efef;
+} 
+
 .input-container {
     position: relative;
+}
+
+.search-input{
+    border-radius: 20px;
+}
+
+#new-btn{
+    /* color: var(--bg-grey)!important; */
+    width: 90%;
+    color: #000;
+    background: #fff;
+    border: 0;
+    border-radius: 15px;
+    padding: 0.8rem;
+    /* box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px; */
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+}
+
+#new-btn:hover{
+    background: rgb(237,241,250);
+    /* box-shadow: rgba(0, 0, 0, 0.25) 0px 3px 10px; */
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
 
 .icon-input {
@@ -42,7 +80,7 @@ html, body{
     top: 0;
     height: 100%;
 
-    background-color: var(--sidebar-grey); /* Color de fondo de la barra lateral */
+    background-color: var(--sidebar-grey); 
 }
 
 .sidebar-item{
@@ -66,7 +104,7 @@ html, body{
 
 main{
     flex: 1;
-    border-radius: 20px !important;
+    border-radius: 15px !important;
     background: #fff;
     /* text-overflow: clip; */
 }
@@ -131,6 +169,43 @@ main {
 #fileTable_wrapper .dataTables_scroll {
     overflow: visible !important; /* Asegura que el scroll vertical sea visible en el tbody */
 }
+
+
+
+.gb{
+    height: 300px;
+    padding: 0.5rem 1rem 1rem 0;
+  }
+
+  .table-responsive{
+    max-height: inherit;
+    overflow: hidden;
+  }
+
+  .dataTable tbody{
+    overflow-y: auto !important;
+  }
+
+  .main-container{
+    display: flex;
+    
+    flex-direction: column;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  .pr{
+    flex: 1;
+  }
+
+
+
+
+
+
+
+
 
 /* -------------- Seccion de iconos -------------- */
 
@@ -244,27 +319,4 @@ main {
     overflow-y: auto;
   } */
 
-  .gb{
-    height: 300px;
-    padding-bottom: 1rem;
-  }
-
-
-
-  .table-responsive{
-    max-height: inherit;
-    overflow: hidden;
-  }
-
-  .dataTable tbody{
-    overflow-y: auto !important;
-  }
-
-  .container{
-    display: flex;
-  flex-direction: column;
-  }
-
-  .pr{
-    flex: 1;
-  }
+  

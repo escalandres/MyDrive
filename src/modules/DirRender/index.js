@@ -264,14 +264,14 @@ function createHtmlFileList(files, dir, useIcons, view) {
     var isDir = file.stat && file.stat.isDirectory();
     var path = dir.split('/').map(function (c) { return encodeURIComponent(c); });
     var iconClass = '';
-    console.log(file)
+    // console.log(file)
     if (useIcons) {
       var ext = extname(file.name);
-      console.log('ext',ext.substring(1))
+      // console.log('ext',ext.substring(1))
       // iconClass = 'icon-' + ext.substring(1);
       if(file.name === "gitignore" || file.name === "LICENSE") iconClass = 'unknown-icon'
       else iconClass = getFileIcon(ext.toLowerCase());
-      console.log('clase',iconClass)
+      // console.log('clase',iconClass)
       classes.push('icon');
 
       if (isDir) {
@@ -365,7 +365,7 @@ function htmlPath(dir) {
     }
   }
 
-  return crumb.join(' / ');
+  return crumb.join(' > ');
 }
 
 /**

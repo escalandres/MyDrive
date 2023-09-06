@@ -2,7 +2,11 @@
         function eliminarEtiquetasI(inputString) {
             return inputString.replace(/<i[^>]*>.*?<\/i>/g, '');
         }
-
+ // Agregar evento de entrada de búsqueda personalizado
+ $('#search').on('keyup', function() {
+    console.log('search', this.value)
+    $('#fileTable').DataTable().search(this.value).draw();
+});
         $(document).ready(function() {
             // Extiende el sistema de ordenamiento de DataTables con el tipo 'folder-first'
             $.fn.dataTable.ext.order['folder-first'] = function (settings, col) {
@@ -56,10 +60,7 @@
             window.location.href = newUrl;
         });
 
-         // Agregar evento de entrada de búsqueda personalizado
-        $('#search').on('keyup', function() {
-            $('#fileTable').DataTable().search(this.value).draw();
-        });
+        
 
         document.addEventListener("DOMContentLoaded", function() {
             var tbody = document.querySelector("tbody"); // Selecciona el tbody en lugar de todas las filas

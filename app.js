@@ -180,7 +180,7 @@ app.post('/logout', (req, res) => {
     });
 });
 
-app.use('/mydrive', (req, res, next) => {
+app.use('/mydrive2', (req, res, next) => {
     if (req.session && req.session.user) {
         const userId = req.session.user.id;
         const userFtpPath = path.join(__dirname, `ftp/${userId}`);
@@ -199,7 +199,7 @@ app.use('/mydrive', (req, res, next) => {
     }
 });
 
-app.use('/mydrive', (req, res, next) => {
+app.use('/mydrive2', (req, res, next) => {
     if (req.session && req.session.user) {
         const userId = req.session.user.id;
         const userFtpPath = path.join(__dirname, `ftp/${userId}`);
@@ -218,7 +218,7 @@ app.use('/mydrive', (req, res, next) => {
     template: './views/mydrive.html'
 }));
 
-app.use('/mydrive2', (req, res, next) => {
+app.use('/mydrive', (req, res, next) => {
     if (req.session && req.session.user) {
         const userId = req.session.user.id;
         const userFtpPath = path.join(__dirname, `ftp/${userId}`);
@@ -237,7 +237,7 @@ app.use('/mydrive2', (req, res, next) => {
     }
 });
 
-app.use('/mydrive2', (req, res, next) => {
+app.use('/mydrive', (req, res, next) => {
     if (req.session && req.session.user) {
         const userId = req.session.user.id;
         const userFtpPath = path.join(__dirname, `ftp/${userId}`);

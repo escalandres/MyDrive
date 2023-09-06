@@ -1,5 +1,5 @@
 function convertFileSize(fileSizeInBytes) {
-    console.log(fileSizeInBytes)
+    // console.log(fileSizeInBytes)
     if(fileSizeInBytes === ""){
         return "------";
     }

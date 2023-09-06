@@ -15,7 +15,7 @@
     <style>{style}</style>
 </head>
 <body>
-    <div class="container">
+    <div class="main-container">
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <!-- Contenido del navbar -->
             <div class="container-fluid">
@@ -25,12 +25,9 @@
                         <img class="nav-icon me-3" src="/img/favicon.svg" alt="">
                         <a class="navbar-brand" href="/">MyDrive</a>
                     </div>
-                    <div class="col-1 d-flex justify-content-center">
-
-                    </div>
-                    <div class="col-7 d-flex justify-content-center">
+                    <div class="col-8 d-flex justify-content-center">
                         <div class="input-container w-100">
-                            <input type="text" class="form-control icon-input" name="" id="search" placeholder="Buscar en My Drive" required>
+                            <input type="text" class="form-control icon-input search-input" name="" id="search" placeholder="Buscar en My Drive" required>
                             <i class="fa-solid fa-magnifying-glass s-icon"></i>
                         </div>
                         <!-- <input id="search" class="form-control w-100" type="search" placeholder="Search" aria-label="Search" autocomplete="off"/> -->
@@ -57,7 +54,7 @@
                     <!-- Contenido del sidebar -->
                     <div class="position-sticky top-0 p-3">
                         <div class="btn-group dropend position-static">
-                            <button href="#" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                            <button href="#" id="new-btn" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                                 <i class="fa-solid fa-plus"></i> New
                             </button>
                             <ul class="dropdown-menu text-small shadow " style="">
@@ -134,7 +131,7 @@
                     <div class="directory">
                         <div id="wrapper mt-4">     
                         <h1 id="path" class="mb-3">
-                            <a href="/">~</a>
+                            <a href="/">Mi unidad</a>
                             {linked-path}
                         </h1>
                         {files}
