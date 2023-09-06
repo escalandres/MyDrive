@@ -4,6 +4,12 @@
     --sidebar-grey: rgb(248,249,250);
 }
 
+html, body{
+    min-height: 100%;
+    max-height: 100%;
+    overflow: hidden; /* Esto evita que el contenido se desborde */
+}
+
 .nav-icon{
     width: 30px;
     height: 30px;
@@ -65,22 +71,17 @@ main{
     /* text-overflow: clip; */
 }
 
-#fileTable_wrapper .dataTables_scrollHead {
-    overflow: hidden !important;
+main {
+    min-height: 99%;
+    max-height: 99%;
+    overflow: hidden; /* Esto evita que el contenido se desborde */
 }
 
-#fileTable_wrapper .dataTables_scrollHead table {
-    margin-bottom: 0 !important;
+.directory{
+    width: 100% !important;
 }
 
-#fileTable_wrapper .dataTables_scrollBody {
-    max-height: 300px !important; /* Puedes ajustar esta altura según tus necesidades */
-    overflow-y: auto !important;
-}
 
-#fileTable_wrapper .dataTables_scroll {
-    overflow: visible !important; /* Asegura que el scroll vertical sea visible en el tbody */
-}
 /* ---------------------------------- DataTable ---------------------------------- */
 .selected-row {
     background-color: rgb(194,231,255) !important;
@@ -114,7 +115,24 @@ main{
     text-overflow: ellipsis;
 }
 
-/* Seccion de iconos */
+#fileTable_wrapper .dataTables_scrollHead {
+    overflow: hidden !important;
+}
+
+#fileTable_wrapper .dataTables_scrollHead table {
+    margin-bottom: 0 !important;
+}
+
+#fileTable_wrapper .dataTables_scrollBody {
+    max-height: 300px !important; /* Puedes ajustar esta altura según tus necesidades */
+    overflow-y: auto !important;
+}
+
+#fileTable_wrapper .dataTables_scroll {
+    overflow: visible !important; /* Asegura que el scroll vertical sea visible en el tbody */
+}
+
+/* -------------- Seccion de iconos -------------- */
 
 .i-icon{
     display: inline-block;
@@ -204,3 +222,49 @@ main{
 .zip-icon {
     background-image: url('/icons/zip.svg');
 }
+
+
+/* .dataTable-container {
+    width: 100%;
+    overflow: hidden;
+}
+
+.dataTable {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+  .dataTable thead {
+    position: sticky;
+    top: 0;
+  }
+
+  .dataTable tbody {
+    max-height: 100%; 
+    overflow-y: auto;
+  } */
+
+  .gb{
+    height: 300px;
+    padding-bottom: 1rem;
+  }
+
+
+
+  .table-responsive{
+    max-height: inherit;
+    overflow: hidden;
+  }
+
+  .dataTable tbody{
+    overflow-y: auto !important;
+  }
+
+  .container{
+    display: flex;
+  flex-direction: column;
+  }
+
+  .pr{
+    flex: 1;
+  }

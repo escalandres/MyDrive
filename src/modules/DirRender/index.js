@@ -269,7 +269,8 @@ function createHtmlFileList(files, dir, useIcons, view) {
       var ext = extname(file.name);
       console.log('ext',ext.substring(1))
       // iconClass = 'icon-' + ext.substring(1);
-      iconClass = getFileIcon(ext);
+      if(file.name === "gitignore" || file.name === "LICENSE") iconClass = 'unknown-icon'
+      else iconClass = getFileIcon(ext.toLowerCase());
       console.log('clase',iconClass)
       classes.push('icon');
 
