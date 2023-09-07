@@ -38,3 +38,24 @@ document.addEventListener("DOMContentLoaded", function() {
     //     themeToggle.click();
     // }
 });
+
+function SendAlert(message, type){
+    let bg = ""
+    if(type === "success") bg = "linear-gradient(to right, #2ECC71, #27AE60)"
+    else if(type === "error") bg = "linear-gradient(to right, #FF5733, #E74C3C)"
+    else if(type === "info") bg = "linear-gradient(to right, #9ec5fe, #3983f1)"
+    else bg = "linear-gradient(to right, #9ec5fe, #3983f1)"
+    Toastify({
+        text: message,
+        duration: 3000,
+        newWindow: true,
+        close: true,
+        gravity: "top", // `top` or `bottom`
+        position: "right", // `left`, `center` or `right`
+        stopOnFocus: true, // Prevents dismissing of toast on hover
+        style: {
+          background: bg,
+        },
+        onClick: function(){} // Callback after click
+      }).showToast();
+}

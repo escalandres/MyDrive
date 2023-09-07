@@ -32,20 +32,7 @@ form.addEventListener('submit', async (event) => {
     if (!data.success) {
         // Mostrar un mensaje de error si el inicio de sesión falla
         // alert(data.message);
-        Toastify({
-            text: "El usuario y/o contraseña no es válido",
-            duration: 3000,
-            destination: "https://github.com/apvarun/toastify-js",
-            newWindow: true,
-            close: true,
-            gravity: "top", // `top` or `bottom`
-            position: "right", // `left`, `center` or `right`
-            stopOnFocus: true, // Prevents dismissing of toast on hover
-            style: {
-              background: "linear-gradient(to right, #FF5733, #E74C3C)",
-            },
-            onClick: function(){} // Callback after click
-          }).showToast();
+        SendAlert("El usuario y/o contraseña no es válido","success")
     }else{
         window.location.href = '/mydrive'
     }
