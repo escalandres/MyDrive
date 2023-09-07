@@ -250,15 +250,15 @@ function createHtmlFileList(files, dir, useIcons, view) {
           + '</tr>'
         + '</thead>'
         + '<tbody>'
-      + (view == 'details' ? (
-        '<thead>'
-          + '<tr>'
-            + '<th>Name</th>'
-            + '<th>Date Modified</th>'
-            + '<th>Size</th>'
-          + '</tr>'
-        + '</thead>'
-        + '<tbody>') : '');
+      // + (view == 'details' ? (
+      //   '<thead>'
+      //     + '<tr>'
+      //       + '<th>Name</th>'
+      //       + '<th>Date Modified</th>'
+      //       + '<th>Size</th>'
+      //     + '</tr>'
+      //   + '</thead>'
+      //   + '<tbody>') : '');
   html += files.map(function (file) {
     var classes = [];
     var isDir = file.stat && file.stat.isDirectory();

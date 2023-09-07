@@ -6,9 +6,10 @@
 }
 
 html, body{
-    min-height: 100%;
-    max-height: 100%;
-    overflow: hidden; /* Esto evita que el contenido se desborde */
+    /* min-height: 100%;
+    max-height: 100%; */
+    min-height: 100vh;
+    max-height: 100vh;
     background: var(--bg-grey);
 }
 
@@ -173,17 +174,17 @@ main {
 
 
 .gb{
-    height: 300px;
+    max-height: inherit;
     padding: 0.5rem 1rem 1rem 0;
   }
 
-  .table-responsive{
+  .table-responsive, .dataTables_wrapper{
     max-height: inherit;
-    overflow: hidden;
+    overflow-y: auto;
   }
 
-  .dataTable tbody{
-    overflow-y: auto !important;
+  .directory{
+    max-height: inherit;
   }
 
   .main-container{
@@ -193,19 +194,23 @@ main {
     width: 100%;
     margin: 0;
     padding: 0;
+    max-height: inherit;
   }
 
   .pr{
-    flex: 1;
+    flex-grow: 1;
+    overflow-y: hidden;
   }
 
+    .sidebar, main{
+        max-height: inherit;
+    }
 
-
-
-
-
-
-
+    .foot{
+        height: 20px;
+        background-color: blue;
+        color: white;
+    }
 
 /* -------------- Seccion de iconos -------------- */
 

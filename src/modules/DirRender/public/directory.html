@@ -129,60 +129,59 @@
                 <main class="col-md-10 ml-sm-auto col-lg-10 px-md-4 p-3 d-flex flex-column align-items-start">
                     <!-- Contenido principal -->
                     <div class="directory">
-                        <div id="wrapper mt-4">     
                         <h1 id="path" class="mb-3">
                             <a href="/">Mi unidad</a>
                             {linked-path}
                         </h1>
-                        {files}
-                        </div>
-                        <!-- Modal -->
-                        <div class="modal fade" id="uploadModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Sube tus archivos</h1>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                    <div id="drop-zone">
-                                        Arrastra archivos aquí o haz clic para seleccionar archivos
-                                    </div>
-                                    </div>
-                                    <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                    <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                
-                        <div class="modal fade" id="createModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Nueva Carpeta</h1>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <input class="form-control" type="text" name="folderName" id="folderName" placeholder="Escribe el nombre de tu carpeta"/>
-                                    </div>
-                                    <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                    <button id="createFolderBtn" type="button" class="btn btn-primary">Crear Carpeta</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                
-                        <div class="container mt-4">
-                            <div class="floating-alerts" id="alerts-container">
-                            <!-- Aquí se mostrarán las alertas -->
-                            </div>
-                        </div>
+                        {files}                        
                     </div>
                 </main>
             </div>
+        </div>
+        <div class="foot">Estew es el footer</div>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="uploadModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Sube tus archivos</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                <div id="drop-zone">
+                    Arrastra archivos aquí o haz clic para seleccionar archivos
+                </div>
+                </div>
+                <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="createModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Nueva Carpeta</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <input class="form-control" type="text" name="folderName" id="folderName" placeholder="Escribe el nombre de tu carpeta"/>
+                </div>
+                <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button id="createFolderBtn" type="button" class="btn btn-primary">Crear Carpeta</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container mt-4">
+        <div class="floating-alerts" id="alerts-container">
+        <!-- Aquí se mostrarán las alertas -->
         </div>
     </div>
   <!-- Librerías JavaScript -->
