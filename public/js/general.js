@@ -43,8 +43,8 @@ function SendAlert(message, type){
     let bg = ""
     if(type === "success") bg = "linear-gradient(to right, #2ECC71, #27AE60)"
     else if(type === "error") bg = "linear-gradient(to right, #FF5733, #E74C3C)"
-    else if(type === "info") bg = "linear-gradient(to right, #9ec5fe, #3983f1)"
-    else bg = "linear-gradient(to right, #9ec5fe, #3983f1)"
+    else if(type === "info") bg = "linear-gradient(to right, #2c79ec, #3983f1)"
+    else bg = "linear-gradient(to right, #2c79ec, #3983f1)"
     Toastify({
         text: message,
         duration: 3000,
