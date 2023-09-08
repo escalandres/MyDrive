@@ -51,7 +51,7 @@ const reg = document.getElementById('registerForm');
 
 reg.addEventListener('submit', async (event) => {
     event.preventDefault();
-    // showLoading();
+    showLoading();
     const response = await fetch('/register', {
         method: 'POST',
         headers: {
@@ -63,11 +63,11 @@ reg.addEventListener('submit', async (event) => {
             password: reg.elements.password.value
         })
     });
-    // hideLoading();
+    hideLoading();
     const data = await response.json();
     if (!data.success) {
         // Mostrar un mensaje de error si el inicio de sesión falla
-        showAlert('Ocurrió un error al crear su usuario','danger');
+        SendAlert('Ocurrió un error al crear su usuario','danger');
     }else{
         window.location.href = '/mydrive'
     }
