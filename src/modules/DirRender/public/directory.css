@@ -97,12 +97,6 @@ html, body{
     height: 40px; 
 }
 
-.gb{
-    background: var(--sidebar-grey);
-    /* padding: 0.3rem 3rem; */
-    /* float: left; */
-}
-
 main{
     flex: 1;
     border-radius: 15px !important;
@@ -141,11 +135,11 @@ main{
   }
 
   .gb{
-    display: flex;
     overflow-y: hidden;
     flex-grow: 1 !important;
-    max-height: inherit;
-    padding: 0.5rem 1rem 1rem 0;
+    max-height: 500px;
+    padding: 0.5rem 1rem 2rem 0;
+    background: var(--sidebar-grey);
   }
 
     .sidebar, main{
@@ -153,14 +147,13 @@ main{
     }
 
     .foot{
+        margin-top: 1rem;
         height: 20px;
         background-color: blue;
         color: white;
     }
 
-    #fileTable_wrapper > .col-sm-12{
-        overflow-y: auto !important;
-    }
+    
 
 /* ---------------------------------- DataTable ---------------------------------- */
 .selected-row {
