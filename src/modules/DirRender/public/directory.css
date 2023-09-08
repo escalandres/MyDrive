@@ -107,10 +107,6 @@ main{
     flex: 1;
     border-radius: 15px !important;
     background: #fff;
-    /* text-overflow: clip; */
-}
-
-main {
     min-height: 99%;
     max-height: 99%;
     overflow: hidden; /* Esto evita que el contenido se desborde */
@@ -118,8 +114,53 @@ main {
 
 .directory{
     width: 100% !important;
+    max-height: inherit;
 }
 
+
+
+  .table-responsive, .dataTables_wrapper{
+    max-height: inherit;
+    overflow-y: auto;
+  }
+
+  .main-container{
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    max-height: inherit;
+  }
+
+  .pr{
+    flex-grow: 1;
+    overflow-y: hidden;
+    max-height: inherit;
+  }
+
+  .gb{
+    display: flex;
+    overflow-y: hidden;
+    flex-grow: 1 !important;
+    max-height: inherit;
+    padding: 0.5rem 1rem 1rem 0;
+  }
+
+    .sidebar, main{
+        max-height: inherit;
+    }
+
+    .foot{
+        height: 20px;
+        background-color: blue;
+        color: white;
+    }
+
+    #fileTable_wrapper > .col-sm-12{
+        overflow-y: auto !important;
+    }
 
 /* ---------------------------------- DataTable ---------------------------------- */
 .selected-row {
@@ -173,44 +214,7 @@ main {
 
 
 
-.gb{
-    max-height: inherit;
-    padding: 0.5rem 1rem 1rem 0;
-  }
 
-  .table-responsive, .dataTables_wrapper{
-    max-height: inherit;
-    overflow-y: auto;
-  }
-
-  .directory{
-    max-height: inherit;
-  }
-
-  .main-container{
-    display: flex;
-    
-    flex-direction: column;
-    width: 100%;
-    margin: 0;
-    padding: 0;
-    max-height: inherit;
-  }
-
-  .pr{
-    flex-grow: 1;
-    overflow-y: hidden;
-  }
-
-    .sidebar, main{
-        max-height: inherit;
-    }
-
-    .foot{
-        height: 20px;
-        background-color: blue;
-        color: white;
-    }
 
 /* -------------- Seccion de iconos -------------- */
 
