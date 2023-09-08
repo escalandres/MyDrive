@@ -1,25 +1,3 @@
-function showAlert(message, type) {
-    const alertsContainer = document.getElementById('alerts-container');
-
-    const alertDiv = document.createElement('div');
-    alertDiv.classList.add('//alert', `//alert-${type}`, '//alert-dismissible', 'fade', 'show');
-    alertDiv.role = '//alert';
-
-    alertDiv.innerHTML = `
-        ${message}
-        <button type="button" class="btn-close" data-bs-dismiss="//alert" aria-label="Close"></button>
-    `;
-
-    alertsContainer.appendChild(alertDiv);
-
-    // Cierra automáticamente la alerta después de 5 segundos
-    setTimeout(() => {
-        alertDiv.remove();
-    }, 5000);
-}
-
-
-
 const dropZone = document.getElementById('drop-zone');
 
 dropZone.addEventListener('dragover', (e) => {
@@ -79,11 +57,11 @@ function uploadFiles(files) {
     xhr.onload = function() {
         if (xhr.status === 200) {
             //console.log('Archivos subidos con éxito');
-            showAlert('Archivos subidos con éxito','success')
+            SendAlert('Archivos subidos con éxito','success')
             window.location.href = "/mydrive"
         } else {
             console.error('Error al subir archivos');
-            showAlert('Ocurrió un error al subir los archivos','danger')
+            SendAlert('Ocurrió un error al subir los archivos','danger')
         }
     };
 
@@ -164,16 +142,16 @@ document.getElementById('createFolderBtn').addEventListener('click',()=>{
     .then(data => {
         //console.log(data); // Mensaje de respuesta del servidor
         if(data.success){
-            showAlert('Se ha creado la carpeta','success')
+            SendAlert('Se ha creado la carpeta','success')
             window.location.href = "/mydrive"
         }
         else{
-            showAlert('Ocurrió un error al crear la carpeta','danger')
+            SendAlert('Ocurrió un error al crear la carpeta','danger')
         }
     })
     .catch(error => {
         console.error('Error:', error);
-        showAlert('Ocurrió un error al crear la carpeta','danger')
+        SendAlert('Ocurrió un error al crear la carpeta','danger')
     });
 
 })
