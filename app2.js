@@ -12,8 +12,7 @@ const crypto = require('crypto');
 const mongoose = require('mongoose');
 const User = require('./model/user');
 const dirRender = require('./src/modules/DirRender')
-const db = require('./src/modules/database');
-// require('dotenv').config();
+require('dotenv').config();
 const app = express();
 const port = 3001;
 const database = [
@@ -24,15 +23,13 @@ const database = [
     { email: "testing@testing.com", password: "testing", userId: "0005" },
 ]
 
-// const DATABASE = process.env.DATABASE_URL;
+const DATABASE = process.env.DATABASE_URL;
 
-// mongoose.connect(DATABASE);
+mongoose.connect(DATABASE);
 
-
-
-// function findUser(email) {
-//     return database.find(item => item.email === email);
-// }
+function findUser(email) {
+    return database.find(item => item.email === email);
+}
 
 
 // const { MongoClient, ServerApiVersion } = require('mongodb');
@@ -121,15 +118,16 @@ app.post('/login', async (req, res) => {
     try {
         const email = req.body.email;
         const password = req.body.password;
-        const result = await db.getUserByEmail(email)
-
-        if(!result.success){
+        //console.log(email, password);
+        // const result = findUser(email)
+        const user = await User.findOne({email: email}).exec();
+        if(!user){
             return res.status(404).json({success: false, message: "The user does not exist"})
         }
-        if(!bcrypt.compareSync(password, result.user.hashedPassword)) {
+        if(!bcrypt.compareSync(password, user.hashedPassword)) {
             return res.status(404).json({success: false, message: "The password is invalid"})
         }
-        req.session.user = { id: result.user.userId, email: result.user.email };
+        req.session.user = { id: user.userId, email: user.email };
         return res.status(200).json({ success: true });
     } catch (error) {
         console.error(error);
