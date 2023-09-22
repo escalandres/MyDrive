@@ -1,6 +1,6 @@
 const MongoClient = require('mongodb').MongoClient;
 const mongoose = require('mongoose');
-
+const User = require('../../model/user');
 const uri = process.env.DATABASE_URL;
 console.log('uri', uri)
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
@@ -29,30 +29,41 @@ async function getUserByEmail(email) {
   try {
     const client = await connect()
     const dbResult = await client.collection("users").findOne({email: email});
-      // const User = mongoose.model('User', {
-      //     userId: {type: String, required: true, unique: true},
-      //     email: {type: String, required: true, unique: true},
-      //     name: {type: String, required: true},
-      //     hashedPassword: {type: String, required: true}
-      //   },
-      //   {collection: 'users'}
-      // );
-      //   console.log('email',email)
-      // const user = await User.findOne({ email }).maxTimeMS(10000).exec();
 
-      if (dbResult) {
-        return {success: true, user: dbResult };
-      } else {
-        return {success: false, user: {}}
-      }
+    if (dbResult) {
+      return {success: true, user: dbResult, error: "" };
+    } else {
+      return {success: false, user: {}, error: "Usuario no encontrado"}
+    }
   } catch (error) {
-      console.error('Error al buscar el usuario. ',error);
+    console.error('Error al buscar el usuario. ',error);
+    return {success: false, user: {}, error: error}
   } finally {
-      disconnect();
+    disconnect();
   }
 }
+
+async function createNewUser(userId, email, name, hashedPassword) {
+  try {
+    const client = await connect()
+    const dbResult = await User.create({userId, email, name, hashedPassword});
+    if (dbResult) {
+      return {success: true, message: dbResult};
+    } else {
+      return {success: false, message: dbResult};
+    }
+  } catch (error) {
+    console.error('Error al buscar el usuario. ',error);
+    return {success: false, message: error};
+  } finally {
+    disconnect();
+  }
+}
+
+
 module.exports = {
   connect: connect,
   disconnect: disconnect,
-  getUserByEmail: getUserByEmail
+  getUserByEmail: getUserByEmail,
+  createNewUser: createNewUser
 };

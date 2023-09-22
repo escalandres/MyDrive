@@ -16,50 +16,6 @@ const db = require('./src/modules/database');
 // require('dotenv').config();
 const app = express();
 const port = 3001;
-const database = [
-    { email: "admin@admin.com", password: "password", userId: "0001" },
-    { email: "test@test.com", password: "1234567890", userId: "0002" },
-    { email: "prueba@prueba.com", password: "holamundo", userId: "0003" },
-    { email: "user@user.com", password: "usuario", userId: "0004" },
-    { email: "testing@testing.com", password: "testing", userId: "0005" },
-]
-
-// const DATABASE = process.env.DATABASE_URL;
-
-// mongoose.connect(DATABASE);
-
-
-
-// function findUser(email) {
-//     return database.find(item => item.email === email);
-// }
-
-
-// const { MongoClient, ServerApiVersion } = require('mongodb');
-// const uri = "mongodb+srv://<username>:<password>@mydrive.uyxx9lj.mongodb.net/?retryWrites=true&w=majority";
-
-// // Create a MongoClient with a MongoClientOptions object to set the Stable API version
-// const client = new MongoClient(uri, {
-//   serverApi: {
-//     version: ServerApiVersion.v1,
-//     strict: true,
-//     deprecationErrors: true,
-//   }
-// });
-
-// async function run() {
-//   try {
-//     // Connect the client to the server	(optional starting in v4.7)
-//     await client.connect();
-//     // Send a ping to confirm a successful connection
-//     await client.db("admin").command({ ping: 1 });
-//     console.log("Pinged your deployment. You successfully connected to MongoDB!");
-//   } finally {
-//     // Ensures that the client will close when you finish/error
-//     await client.close();
-//   }
-// }
-// run().catch(console.dir);
 
 // Configuración de express-session
 app.use(session({
@@ -150,19 +106,20 @@ app.post('/register', async (req, res) => {
         const password = req.body.password;
         const name = req.body.name + " "+ req.body.lastname;
         const lastname = req.body.lastname;
-        const userId = crypto.randomBytes(16).toString('hex');
+        const userID = crypto.randomBytes(16).toString('hex');
         const hashedPassword = await bcrypt.hash(password, 10);
         console.log(email, password, name, lastname);
-        const response = await User.create({
-            userId, email, name, hashedPassword
-        })
+        // const response = await User.create({
+        //     userId, email, name, hashedPassword
+        // })1
+        const response = await db.createNewUser(userID, email, name, hashedPassword)
         console.log('response',response)
-        if(!response){
+        if(!response.success){
             return res.status(401).json({success: false, message: "Error al crear su cuenta de usuario. Inténtelo nuevamente"})
         }
-        const userFolder = path.join(__dirname,'ftp',userId)
+        const userFolder = path.join(__dirname,'ftp',userID)
         fs.promises.mkdir(userFolder)
-        req.session.user = {id: userId, email: email}
+        req.session.user = {id: userID, email: email}
         res.status(200).json({success: true})
     } catch (error) {
         console.error(error);
