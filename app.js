@@ -108,7 +108,7 @@ app.post('/register', async (req, res) => {
         const lastname = req.body.lastname;
         const userID = crypto.randomBytes(16).toString('hex');
         const hashedPassword = await bcrypt.hash(password, 10);
-        console.log(email, password, name, lastname);
+        console.log(email, password, name, userID);
         // const response = await User.create({
         //     userId, email, name, hashedPassword
         // })1

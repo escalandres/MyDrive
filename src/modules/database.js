@@ -46,7 +46,13 @@ async function getUserByEmail(email) {
 async function createNewUser(userId, email, name, hashedPassword) {
   try {
     const client = await connect()
-    const dbResult = await User.create({userId, email, name, hashedPassword});
+    const usersCollection = client.collection('users');
+
+    // Crear índices únicos en email y userId
+    await usersCollection.createIndex({ email: 1 }, { unique: true });
+    await usersCollection.createIndex({ userId: 1 }, { unique: true });
+
+    const dbResult = await usersCollection.insertOne({ userId, email, name, hashedPassword });
     if (dbResult) {
       return {success: true, message: dbResult};
     } else {

@@ -59,6 +59,7 @@ reg.addEventListener('submit', async (event) => {
         },
         body: JSON.stringify({
             name: reg.elements.name.value,
+            lastname: reg.elements.lastname.value,
             email: reg.elements.email.value,
             password: reg.elements.password.value
         })
