@@ -29,8 +29,12 @@
                 "searching": true,
                 "lengthChange": false,
                 "language": {
-                "search": "Buscar:",
-                "searchPlaceholder": "Buscar en la tabla"
+                    "search": "Buscar:",
+                    "searchPlaceholder": "Buscar en la tabla",
+                    emptyTable: "No se encontraron archivos",
+                    info: "",
+                    infoFiltered: "",
+                    infoEmpty: "",
                 },
                 "paging": false, // Deshabilitar la paginación de DataTables
                 "columns": [
@@ -51,13 +55,20 @@
 
         // Manejo del doble clic en DataTables
         $('#fileTable tbody').on('dblclick', 'tr', function () {
+            var visorPDF = document.getElementById("visorPDF");
             var data = $('#fileTable').DataTable().row(this).data();
             var selected = data["name"]; // Obtener el contenido de la primera columna
             var currentURL = window.location.href;
             var _url = currentURL + selected;
             var newUrl = eliminarEtiquetasI(_url);
             // alert(newUrl);
-            window.location.href = newUrl;
+            // window.location.href = newUrl;
+
+            // Establecer la fuente del iframe con la ruta del PDF
+            visorPDF.src = newUrl;
+
+            // Mostrar el modal si no está visible
+            $("#div_visor").modal("show");
         });
 
         
