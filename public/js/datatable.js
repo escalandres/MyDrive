@@ -89,3 +89,7 @@
                 });
             });
         });
+
+        $('#div_visor').on('hidden.bs.modal', function (event) {
+            visorPDF.src = "";
+        });
