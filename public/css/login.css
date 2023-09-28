@@ -32,12 +32,12 @@ body{
 }
 
 .container-fluid{
-    padding: 4rem 8rem;
+    padding: 4rem
 }
 
 .card-template{
     padding: 2rem;
-    width: 100%;
+    /* width: 100%; */
 }
 
 .bottom-text{
@@ -58,7 +58,8 @@ body{
 }
 
 .r-form{
-    width: 60% !important;
+    text-decoration: none;
+    /* width: 60% !important; */
 }
 
 .error{
