@@ -32,7 +32,7 @@ form.addEventListener('submit', async (event) => {
     if (!data.success) {
         // Mostrar un mensaje de error si el inicio de sesión falla
         // alert(data.message);
-        SendAlert("El usuario y/o contraseña no es válido","success")
+        SendAlert("El usuario y/o contraseña no es válido","error")
     }else{
         window.location.href = '/mydrive'
     }
